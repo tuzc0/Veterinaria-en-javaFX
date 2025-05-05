@@ -13,7 +13,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="971.0" stylesheets="@estiloslogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorGestorAnimalGUI">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="622.0" prefWidth="971.0" stylesheets="@estiloslogin.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="GUIs.controladores.ControladorGestorAnimalGUI">
     <children>
         <VBox layoutX="37.0" layoutY="80.0" prefHeight="437.0" prefWidth="910.0">
             <children>
@@ -21,14 +24,17 @@
                     <children>
                         <HBox prefHeight="47.0" prefWidth="822.0">
                             <children>
-                                <TextField fx:id="campoBusquedaAnimal" prefHeight="26.0" prefWidth="651.0" promptText="Ingrese especie o raza" styleClass="text-field" />
+                                <TextField fx:id="campoBusquedaAnimal" prefHeight="26.0" prefWidth="651.0"
+                                           promptText="Ingrese especie o raza" styleClass="text-field" />
                             </children>
                         </HBox>
                         <HBox prefHeight="46.0" prefWidth="395.0">
                             <children>
-                                <Button fx:id="botonBuscarAnimal" mnemonicParsing="false" prefHeight="28.0" prefWidth="200.0" styleClass="button" text="Buscar">
+                                <Button fx:id="botonBuscarAnimal" mnemonicParsing="false" onAction="#buscarAnimal"
+                                        prefHeight="28.0" prefWidth="200.0" styleClass="button" text="Buscar">
                                     <graphic>
-                                        <ImageView fx:id="buscarBT" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="buscarBT" fitHeight="20.0" fitWidth="20.0"
+                                                   pickOnBounds="true" preserveRatio="true">
                                             <Image url="https://cdn-icons-png.flaticon.com/512/751/751463.png" />
                                         </ImageView>
                                     </graphic>
@@ -130,9 +136,11 @@
                                     <children>
                                         <HBox prefHeight="48.0" prefWidth="277.0">
                                             <children>
-                                                <Button fx:id="botonEditarAnimal" mnemonicParsing="false" prefHeight="33.0" prefWidth="86.0" styleClass="button" text="Editar" />
+                                                <Button fx:id="botonEditarAnimal" mnemonicParsing="false" onAction="#editarAnimal"
+                                                        prefHeight="33.0" prefWidth="86.0" styleClass="button" text="Editar" />
                                                 <HBox prefHeight="48.0" prefWidth="29.0" />
-                                                <Button fx:id="botonEliminarAnimal" mnemonicParsing="false" prefHeight="30.0" prefWidth="79.0" styleClass="button" text="Eliminar" />
+                                                <Button fx:id="botonEliminarAnimal" mnemonicParsing="false" onAction="#eliminarAnimal"
+                                                        prefHeight="30.0" prefWidth="79.0" styleClass="button" text="Eliminar" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -144,18 +152,22 @@
             </children>
         </VBox>
         <Label layoutX="424.0" layoutY="14.0" prefHeight="45.0" prefWidth="136.0" styleClass="label-titulo" text="Animales" />
-        <Button fx:id="botonRegistrarAnimal" layoutX="37.0" layoutY="533.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="178.0" styleClass="button" text="Registrar Animal" />
-        <Button fx:id="botonSeleccionarAnimales" layoutX="402.0" layoutY="533.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="218.0" styleClass="button" text="Seleccionar animales" />
-        <Button fx:id="botonEliminarSeleccionado" disable="true" layoutX="690.0" layoutY="527.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="54.0" styleClass="button" visible="false">
+        <Button fx:id="botonRegistrarAnimal" layoutX="37.0" layoutY="533.0" mnemonicParsing="false"
+                onAction="#abrirVentanaRegistrarAnimal" prefHeight="34.0" prefWidth="178.0" styleClass="button" text="Registrar Animal" />
+        <Button fx:id="botonEliminarSeleccionado" disable="true" layoutX="690.0" layoutY="527.0"
+                mnemonicParsing="false" prefHeight="34.0" prefWidth="54.0" styleClass="button" visible="false">
             <graphic>
                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="https://cdn-icons-png.flaticon.com/512/484/484611.png" />
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="botonGuardar" layoutX="855.0" layoutY="518.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" styleClass="button" text="Guardar" visible="false" />
-        <Button fx:id="botonCancelar" layoutX="754.0" layoutY="518.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" styleClass="button" text="Cancelar" visible="false" />
-        <Button fx:id="botonCancelarSeleccion" layoutX="776.0" layoutY="533.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" styleClass="button" text="Cancelar seleccion" visible="false" />
+        <Button fx:id="botonGuardar" layoutX="855.0" layoutY="518.0" mnemonicParsing="false"
+                onAction="#guardarCambiosAnimal" prefHeight="26.0" prefWidth="79.0" styleClass="button" text="Guardar" visible="false" />
+        <Button fx:id="botonCancelar" layoutX="754.0" layoutY="518.0" mnemonicParsing="false"
+                onAction="#cancelarEdicionAnimal" prefHeight="26.0" prefWidth="79.0" styleClass="button" text="Cancelar" visible="false" />
+        <Button fx:id="botonCancelarSeleccion" layoutX="776.0" layoutY="533.0" mnemonicParsing="false"
+                prefHeight="34.0" prefWidth="136.0" styleClass="button" text="Cancelar seleccion" visible="false" />
         <Label fx:id="campoNumeroAnimalesSeleccionados" layoutX="406.0" layoutY="580.0" prefHeight="20.0" prefWidth="211.0">
             <font>
                 <Font size="14.0" />
