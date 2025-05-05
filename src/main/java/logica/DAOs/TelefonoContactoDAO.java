@@ -15,7 +15,7 @@ public class TelefonoContactoDAO {
 
     public boolean insertarTelefonoContacto(TelefonoContactoDTO telefonoContacto) throws SQLException, IOException {
 
-        String consultaSQL = "INSERT INTO telefonocontacto (idUsuario, telefono) VALUES (?, ?)";
+        String consultaSQL = "INSERT INTO telefonocontacto (idDueño, telefonoCelular) VALUES (?, ?)";
         boolean telefonoInsertado = false;
 
         try {
@@ -60,35 +60,37 @@ public class TelefonoContactoDAO {
         return telefonoEliminado;
     }
 
-    public TelefonoContactoDTO buscarTelefonoContactoPorId(int idUsuario) throws SQLException, IOException {
+    public TelefonoContactoDTO buscarTelefonoContactoPorId(int idDueño) throws SQLException, IOException {
 
         TelefonoContactoDTO telefonoContacto = new TelefonoContactoDTO(-1, "N/A");
-        String consultaSQL = "SELECT * FROM telefonocontacto WHERE idUsuario = ?";
+        String consultaSQL = "SELECT * FROM telefonocontacto WHERE idDueño = ?";
 
         try {
 
             conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
             consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL);
-            consultaPreparada.setInt(1, idUsuario);
+            consultaPreparada.setInt(1, idDueño);
             resultadoConsulta = consultaPreparada.executeQuery();
 
             if (resultadoConsulta.next()) {
-
                 telefonoContacto = new TelefonoContactoDTO(
-                        resultadoConsulta.getInt("idUsuario"),
-                        resultadoConsulta.getString("telefono")
+                        resultadoConsulta.getInt("idDueño"),
+                        resultadoConsulta.getString("telefonoCelular")
                 );
             }
 
         } finally {
-
             if (consultaPreparada != null) {
                 consultaPreparada.close();
+            }
+            if (conexionBaseDeDatos != null) {
+                conexionBaseDeDatos.close();
             }
         }
 
         return telefonoContacto;
     }
+
 
     public List<TelefonoContactoDTO> listarTelefonosContacto() throws SQLException, IOException {
 

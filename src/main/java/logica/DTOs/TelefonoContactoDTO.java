@@ -10,6 +10,12 @@ public class TelefonoContactoDTO {
         this.telefono = telefono;
     }
 
+
+    public TelefonoContactoDTO() {
+    }
+
+
+
     public int getIdUsuario() {
         return idUsuario;
     }

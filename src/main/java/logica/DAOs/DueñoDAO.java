@@ -13,23 +13,26 @@ public class DueñoDAO {
     private PreparedStatement consultaPreparada = null;
     private ResultSet resultadoConsulta;
 
-    public boolean insertarDueño(DueñoDTO dueño) throws SQLException, IOException {
+    public int insertarDueño(DueñoDTO dueño) throws SQLException, IOException {
 
-        String consultaSQL = "INSERT INTO dueño (idDueño, nombre, apellidos, calle, numero, colonia) VALUES (?, ?, ?, ?, ?, ?)";
-        boolean dueñoInsertado = false;
+        String consultaSQL = "INSERT INTO dueño (nombre, apellidos, calle, numero, colonia) VALUES (?, ?, ?, ?, ?)";
+        int idDueñoGenerado = -1;
 
         try {
 
             conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
-            consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL);
-            consultaPreparada.setInt(1, dueño.getIdDueño());
-            consultaPreparada.setString(2, dueño.getNombre());
-            consultaPreparada.setString(3, dueño.getApellidos());
-            consultaPreparada.setString(4, dueño.getCalle());
-            consultaPreparada.setString(5, dueño.getNumero());
-            consultaPreparada.setString(6, dueño.getColonia());
+            consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL, Statement.RETURN_GENERATED_KEYS);
+            consultaPreparada.setString(1, dueño.getNombre());
+            consultaPreparada.setString(2, dueño.getApellidos());
+            consultaPreparada.setString(3, dueño.getCalle());
+            consultaPreparada.setString(4, dueño.getNumero());
+            consultaPreparada.setString(5, dueño.getColonia());
             consultaPreparada.executeUpdate();
-            dueñoInsertado = true;
+
+            resultadoConsulta = consultaPreparada.getGeneratedKeys();
+            if (resultadoConsulta.next()) {
+                idDueñoGenerado = resultadoConsulta.getInt(1);
+            }
 
         } finally {
 
@@ -38,7 +41,7 @@ public class DueñoDAO {
             }
         }
 
-        return dueñoInsertado;
+        return idDueñoGenerado;
     }
 
     public boolean eliminarDueñoPorId(int idDueño) throws SQLException, IOException {
@@ -194,4 +197,37 @@ public class DueñoDAO {
 
         return dueños;
     }
+
+    public DueñoDTO buscarDueñoPorTelefono(String telefono) throws SQLException, IOException {
+        DueñoDTO dueño = null;
+        String consultaSQL = "SELECT d.* FROM dueño d " +
+                "JOIN telefonocontacto t ON d.idDueño = t.idDueño " +
+                "WHERE t.telefonoCelular = ?";
+
+        try {
+            conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
+            consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL);
+            consultaPreparada.setString(1, telefono);
+            resultadoConsulta = consultaPreparada.executeQuery();
+
+            if (resultadoConsulta.next()) {
+                dueño = new DueñoDTO(
+                        resultadoConsulta.getInt("idDueño"),
+                        resultadoConsulta.getString("nombre"),
+                        resultadoConsulta.getString("apellidos"),
+                        resultadoConsulta.getString("calle"),
+                        resultadoConsulta.getString("numero"),
+                        resultadoConsulta.getString("colonia")
+                );
+            }
+
+        } finally {
+            if (consultaPreparada != null) {
+                consultaPreparada.close();
+            }
+        }
+
+        return dueño;
+    }
+
 }
