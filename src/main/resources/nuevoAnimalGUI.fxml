@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="584.0" prefWidth="788.0" stylesheets="@estiloslogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorNuevoAnimalGUI">
+
+    <left>
+        <AnchorPane prefHeight="584.0" prefWidth="228.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="imagen" fitHeight="167.0" fitWidth="158.0" layoutX="35.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" styleClass="icono" />
+            </children>
+        </AnchorPane>
+    </left>
+
+    <right>
+        <AnchorPane prefHeight="584.0" prefWidth="583.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="144.0" layoutY="40.0" prefHeight="58.0" prefWidth="270.0" text="Ingresar nuevo animal:">
+                    <font>
+                        <Font name="Bodoni MT Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <VBox layoutX="48.0" layoutY="119.0" spacing="25.0">
+                    <children>
+                        <TextField fx:id="colorTX" prefHeight="39.0" prefWidth="463.0" promptText="Color" styleClass="text-field" />
+                        <TextField fx:id="razaTX" prefHeight="39.0" prefWidth="463.0" promptText="Raza" styleClass="text-field" />
+                        <TextField fx:id="tamanoTX" prefHeight="39.0" prefWidth="463.0" promptText="Tamaño" styleClass="text-field" />
+                        <TextField fx:id="pesoTX" prefHeight="39.0" prefWidth="463.0" promptText="Peso en kg" styleClass="text-field" />
+                        <TextField fx:id="especieTX" prefHeight="39.0" prefWidth="463.0" promptText="Especie" styleClass="text-field" />
+                        <TextField fx:id="duenoTX" prefHeight="39.0" prefWidth="463.0" promptText="Dueño" styleClass="text-field" />
+                    </children>
+                </VBox>
+
+                <Button fx:id="aceptarBT" layoutX="144.0" layoutY="530.0" mnemonicParsing="false" onAction="#registrarAnimal" prefHeight="40.0" prefWidth="108.0" styleClass="button" text="Aceptar" />
+                <Button fx:id="cancelarBT" layoutX="306.0" layoutY="530.0" mnemonicParsing="false" onAction="#cancelarRegistro" prefHeight="40.0" prefWidth="108.0" styleClass="button" text="Cancelar" />
+            </children>
+        </AnchorPane>
+    </right>
+
+</BorderPane>

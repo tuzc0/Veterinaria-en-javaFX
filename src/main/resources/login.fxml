@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="403.0" prefWidth="345.0" styleClass="border-pane" stylesheets="@estiloslogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorLoginGUI">
+
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imagen" fitHeight="178.0" fitWidth="148.0" layoutX="99.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageView" />
+
+            <TextField fx:id="nombreUsuarioTX" layoutX="72.0" layoutY="231.0" prefHeight="37.0" prefWidth="201.0" promptText="User" styleClass="text-field" />
+
+            <PasswordField fx:id="contrasenaTX" layoutX="72.0" layoutY="299.0" prefHeight="37.0" prefWidth="201.0" promptText="Password " styleClass="password-field" />
+
+            <Button fx:id="aceptarBT" layoutX="144.0" layoutY="359.0" mnemonicParsing="false" onAction="#autenticarUsuario" styleClass="button" text="Aceptar" />
+
+            <ImageView fx:id="personaIcono" fitHeight="39.0" fitWidth="35.0" layoutX="30.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" styleClass="icono" />
+
+            <ImageView fx:id="llaveIcono" fitHeight="39.0" fitWidth="35.0" layoutX="30.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" styleClass="icono" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

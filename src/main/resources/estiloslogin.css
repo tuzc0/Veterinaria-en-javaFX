@@ -1,0 +1,48 @@
+ImageView {
+    -fx-effect: dropshadow(gaussian, #DADCE0, 5, 0.1, 0, 2);
+    -fx-padding: 10px;
+}
+
+.border-pane {
+    -fx-background-color: #F9F9F9;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #DADCE0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #202124;
+    -fx-prompt-text-fill: #5F6368;
+}
+
+.icono {
+    -fx-padding: 5px;
+}
+
+.button {
+    -fx-background-color: #1A73E8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1558B0;
+}
+
+.label-titulo {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.label-subtitulo {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
