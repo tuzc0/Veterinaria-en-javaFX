@@ -132,7 +132,7 @@
                                             <children>
                                                 <Button fx:id="botonEditarDueño" mnemonicParsing="false" onAction="#editarDueño" prefHeight="33.0" prefWidth="86.0" styleClass="button" text="Editar" />
                                                 <HBox prefHeight="48.0" prefWidth="29.0" />
-                                                <Button fx:id="botonEliminarDueño" mnemonicParsing="false" prefHeight="30.0" prefWidth="79.0" styleClass="button" text="Eliminar" />
+                                                <Button fx:id="botonEliminarDueño" mnemonicParsing="false" onAction="#eliminarDueño" prefHeight="30.0" prefWidth="79.0" styleClass="button" text="Eliminar" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -144,7 +144,7 @@
             </children>
         </VBox>
         <Label layoutX="444.0" layoutY="14.0" prefHeight="45.0" prefWidth="136.0" styleClass="label-titulo" text="Dueños" />
-        <Button fx:id="botonRegistrarDueño" layoutX="37.0" layoutY="533.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="178.0" styleClass="button" text="Registrar Dueño" />
+        <Button fx:id="botonRegistrarDueño" layoutX="37.0" layoutY="533.0" mnemonicParsing="false" onAction="#abrirVentanaRegistrarDueño" prefHeight="34.0" prefWidth="178.0" styleClass="button" text="Registrar Dueño" />
         <Button fx:id="botonSeleccionarDueño" layoutX="402.0" layoutY="533.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="218.0" styleClass="button" text="Seleccionar Dueños" />
         <Button fx:id="botonEliminarSeleccionado" disable="true" layoutX="690.0" layoutY="527.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="54.0" styleClass="button" visible="false">
             <graphic>
