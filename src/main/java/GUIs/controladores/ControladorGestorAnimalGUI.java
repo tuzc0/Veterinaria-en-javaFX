@@ -328,7 +328,7 @@ public class ControladorGestorAnimalGUI {
 
             } else {
 
-                mostrarAlerta("Exito", "El animla se ha modificado con exito","El animal se ha modificado");
+                mostrarAlerta("Exito", "El animal se ha modificado con exito","El animal se ha modificado");
             }
 
             campoEspecieEncontrada.setText(especie);
