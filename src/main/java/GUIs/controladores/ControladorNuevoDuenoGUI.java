@@ -3,12 +3,17 @@ package GUIs.controladores;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import logica.DAOs.DueñoDAO;
 import logica.DAOs.TelefonoContactoDAO;
 import logica.DTOs.DueñoDTO;
 import logica.DTOs.TelefonoContactoDTO;
 
 public class ControladorNuevoDuenoGUI {
+
+    @FXML
+    private ImageView imagen;
 
     @FXML
     private TextField campoNombre;
@@ -27,6 +32,19 @@ public class ControladorNuevoDuenoGUI {
 
     @FXML
     private TextField campoTelefono;
+
+    @FXML
+    public void initialize() {
+
+        try {
+
+            imagen.setImage(new Image("https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"));
+
+        } catch (Exception e) {
+
+            mostrarAlerta("Error", "Error de conexión", "Ocurrio un error al cargar parte de la interfaz. ");
+        }
+    }
 
 
     @FXML
