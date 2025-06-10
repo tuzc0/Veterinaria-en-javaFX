@@ -1,5 +1,6 @@
 package GUIs.controladores;
 
+import GUIauxiliar.Utilidades;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -11,6 +12,8 @@ import logica.DAOs.AnimalDAO;
 import logica.DAOs.DueñoDAO;
 import logica.DTOs.AnimalDTO;
 import logica.DTOs.DueñoDTO;
+import logica.Validaciones;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -19,11 +22,13 @@ public class ControladorNuevoAnimalGUI {
     @FXML private ImageView imagen;
     @FXML private TextField colorTX;
     @FXML private TextField razaTX;
-    @FXML private TextField tamanoTX;
-    @FXML private TextField pesoTX;
+    @FXML private ComboBox <String> comboTamaño;
+    @FXML private Spinner <float> SpinnerPeso;
     @FXML private TextField especieTX;
     @FXML private TextField duenoTX;
     @FXML private Button cancelarBT;
+
+    Utilidades utilidades = new Utilidades();
 
     @FXML
     public void initialize() {
@@ -34,7 +39,7 @@ public class ControladorNuevoAnimalGUI {
 
         } catch (Exception e) {
 
-            mostrarAlerta("Error", "Error de conexión", "Ocurrió un error al cargar parte de la interfaz.");
+            utilidades.mostrarAlerta("Error", "Error de conexión", "Ocurrió un error al cargar parte de la interfaz.");
         }
     }
 
@@ -50,7 +55,7 @@ public class ControladorNuevoAnimalGUI {
 
         if (color.isEmpty() || raza.isEmpty() || tamano.isEmpty() || peso.isEmpty() || especie.isEmpty() || dueno.isEmpty()) {
 
-            mostrarAlerta("Error", "Campos vacíos", "Por favor, complete todos los campos.");
+            utilidades.mostrarAlerta("Error", "Campos vacíos", "Por favor, complete todos los campos.");
             return;
         }
 
@@ -61,7 +66,7 @@ public class ControladorNuevoAnimalGUI {
 
             if (dueñoDTO.getIdDueño() == -1) {
 
-                mostrarAlerta("Error", "Dueño no registrado", "Por favor registre al dueño antes. ");
+                utilidades.mostrarAlerta("Error", "Dueño no registrado", "Por favor registre al dueño antes. ");
 
             } else {
 
@@ -72,23 +77,43 @@ public class ControladorNuevoAnimalGUI {
 
                 if (exito) {
 
-                    mostrarAlerta("Éxito", "Registro exitoso", "El animal ha sido registrado correctamente.");
+                    utilidades.mostrarAlerta("Éxito", "Registro exitoso", "El animal ha sido registrado correctamente.");
                     limpiarCampos();
 
                 } else {
 
-                    mostrarAlerta("Error", "Registro fallido", "No se pudo registrar el animal.");
+                    utilidades.mostrarAlerta("Error", "Registro fallido", "No se pudo registrar el animal.");
                 }
             }
 
         } catch (NumberFormatException e) {
 
-            mostrarAlerta("Error", "Formato inválido", "El ID del dueño debe ser un número.");
+            utilidades.mostrarAlerta("Error", "Formato inválido", "El ID del dueño debe ser un número.");
 
         } catch (SQLException | IOException e) {
 
-            mostrarAlerta("Error", "Error de conexión", "No se pudo conectar a la base de datos.");
+            utilidades.mostrarAlerta("Error", "Error de conexión", "No se pudo conectar a la base de datos.");
         }
+    }
+
+    public void validarCampos() {
+
+        String color = colorTX.getText().trim();
+        String raza = razaTX.getText().trim();
+        String tamano = tamanoTX.getText().trim();
+        String peso = pesoTX.getText().trim();
+        String especie = especieTX.getText().trim();
+        String dueno = duenoTX.getText().trim();
+
+        Validaciones validaciones = new Validaciones();
+
+        if (color.isEmpty() || raza.isEmpty() || tamano.isEmpty() || peso.isEmpty() || especie.isEmpty() || dueno.isEmpty()) {
+
+            utilidades.mostrarAlerta("Error", "Campos vacíos", "Por favor, complete todos los campos.");
+            return;
+        }
+
+
     }
 
     private void limpiarCampos() {
@@ -103,16 +128,27 @@ public class ControladorNuevoAnimalGUI {
 
     @FXML
     private void cancelarRegistro() {
-        Stage stage = (Stage) cancelarBT.getScene().getWindow();
-        stage.close();
+
+
+        utilidades.mostrarAlertaConfirmacion(
+                "Confirmar eliminación",
+                "¿Está seguro que desea cancelar el registro?",
+                "Se cancelara . Esta acción no se puede deshacer.",
+                () -> {
+
+                    Stage stage = (Stage) cancelarBT.getScene().getWindow();
+                    stage.close();
+
+                },
+                () -> {
+                    utilidades.mostrarAlerta("Cancelado",
+                            "Eliminación cancelada",
+                            "No se ha cancelado ningun registro.");
+                }
+
+        );
+
     }
 
-    private void mostrarAlerta(String titulo, String cabecera, String contenido) {
 
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(cabecera);
-        alerta.setContentText(contenido);
-        alerta.showAndWait();
-    }
 }

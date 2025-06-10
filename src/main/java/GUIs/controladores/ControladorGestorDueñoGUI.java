@@ -1,5 +1,6 @@
 package GUIs.controladores;
 
+import GUIauxiliar.Utilidades;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,6 +82,8 @@ public class ControladorGestorDueñoGUI {
     @FXML private TableColumn<DueñoDTO, String> columnaNumero;
     @FXML private TableColumn<DueñoDTO, String> columnaColonia;
 
+    Utilidades utilidades = new Utilidades();
+
     @FXML
     public void initialize() {
         columnaNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
@@ -136,21 +139,22 @@ public class ControladorGestorDueñoGUI {
     private void buscarDueñoPorTelefono() {
         String telefono = campoTelefonoBuscado.getText().trim();
 
-        if (telefono.isEmpty()) {
-            mostrarAlerta("Error", "Campo vacío", "Por favor, ingrese un número de teléfono.");
-            return;
-        }
-
         try {
             DueñoDAO dueñoDAO = new DueñoDAO();
-            DueñoDTO dueñoEncontrado = dueñoDAO.buscarDueñoPorTelefono(telefono);
 
-            if (dueñoEncontrado != null) {
-                mostrarDetallesDesdeTabla(dueñoEncontrado);
+            if (telefono.isEmpty()) {
+                cargarDueños();
             } else {
-                mostrarAlerta("Sin resultados", "No se encontró dueño", "No se encontró ningún dueño con ese número de teléfono.");
-            }
+                DueñoDTO dueñoEncontrado = dueñoDAO.buscarDueñoPorTelefono(telefono);
 
+                if (dueñoEncontrado != null) {
+
+                    tablaAnimales.getItems().setAll(dueñoEncontrado);
+                } else {
+                    mostrarAlerta("Sin resultados", "No se encontró dueño", "No se encontró ningún dueño con ese número de teléfono.");
+                    tablaAnimales.getItems().clear();
+                }
+            }
         } catch (SQLException | IOException e) {
             mostrarAlerta("Error", "Error de base de datos", "Ocurrió un error al buscar el dueño.");
             e.printStackTrace();
@@ -212,6 +216,7 @@ public class ControladorGestorDueñoGUI {
             dueñoSeleccionado.setColonia(colonia);
 
             try {
+
                 DueñoDAO dueñoDAO = new DueñoDAO();
                 dueñoDAO.modificarDueño(dueñoSeleccionado);
                 cargarDueños();
@@ -266,6 +271,27 @@ public class ControladorGestorDueñoGUI {
 
     @FXML
     private void eliminarDueño() {
+
+        utilidades.mostrarAlertaConfirmacion(
+                "Confirmar eliminación",
+                "¿Está seguro que desea eliminar este dueño?",
+                "Se borrara . Esta acción no se puede deshacer.",
+                () -> {
+
+                    borrarDueño();
+                },
+                () -> {
+                    utilidades.mostrarAlerta("Cancelado",
+                            "Eliminación cancelada",
+                            "No se ha eliminado ningun registro.");
+                }
+
+        );
+
+    }
+
+    public void borrarDueño() {
+
         DueñoDTO dueñoSeleccionado = tablaAnimales.getSelectionModel().getSelectedItem();
         String telefonoBuscado = campoTelefonoBuscado.getText().trim();
 
