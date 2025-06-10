@@ -2,12 +2,11 @@ package GUIs.controladores;
 
 import GUIauxiliar.Utilidades;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import logica.DAOs.AnimalDAO;
 import logica.DAOs.DueñoDAO;
 import logica.DTOs.AnimalDTO;
@@ -22,11 +21,13 @@ public class ControladorNuevoAnimalGUI {
     @FXML private ImageView imagen;
     @FXML private TextField colorTX;
     @FXML private TextField razaTX;
-    @FXML private ComboBox <String> comboTamaño;
-    @FXML private Spinner <float> SpinnerPeso;
-    @FXML private TextField especieTX;
+    @FXML private ComboBox<String> comboTamaño;
+    @FXML private Spinner<String> SpinnerPeso;
+    @FXML private RadioButton botonPerro;
+    @FXML private RadioButton botonGato;
     @FXML private TextField duenoTX;
     @FXML private Button cancelarBT;
+    private ToggleGroup grupoAnimales;
 
     Utilidades utilidades = new Utilidades();
 
@@ -34,97 +35,168 @@ public class ControladorNuevoAnimalGUI {
     public void initialize() {
 
         try {
-
             imagen.setImage(new Image("https://cdn-icons-png.flaticon.com/512/616/616408.png"));
-
         } catch (Exception e) {
-
             utilidades.mostrarAlerta("Error", "Error de conexión", "Ocurrió un error al cargar parte de la interfaz.");
         }
+
+        grupoAnimales = new ToggleGroup();
+        botonGato.setToggleGroup(grupoAnimales);
+        botonPerro.setToggleGroup(grupoAnimales);
+
+
+        configurarSpinnerPeso();
+
+        cargarComboTamaño();
+    }
+
+    private void configurarSpinnerPeso() {
+
+        SpinnerValueFactory<String> factory = new SpinnerValueFactory<String>() {
+            private double currentValue = 0.0;
+
+            @Override
+            public void decrement(int steps) {
+                currentValue = Math.max(0, currentValue - (0.1 * steps));
+                setValue(String.format("%.1f", currentValue));
+            }
+
+            @Override
+            public void increment(int steps) {
+                currentValue += 0.1 * steps;
+                setValue(String.format("%.1f", currentValue));
+            }
+        };
+
+
+        SpinnerPeso.setValueFactory(factory);
+
+
+        factory.setValue("0.0");
+
+
+        SpinnerPeso.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            try {
+                if (!newValue.isEmpty()) {
+                    double value = Double.parseDouble(newValue);
+                    if (value >= 0) {
+                        factory.setValue(String.format("%.1f", value));
+                    }
+                }
+            } catch (NumberFormatException e) {
+
+                SpinnerPeso.getEditor().setText(oldValue);
+            }
+        });
+    }
+
+    public void cargarComboTamaño() {
+
+        comboTamaño.getItems().clear();
+        comboTamaño.getItems().addAll("Pequeño", "Mediano", "Grande");
+
     }
 
     @FXML
     private void registrarAnimal() {
 
-        String color = colorTX.getText().trim();
-        String raza = razaTX.getText().trim();
-        String tamano = tamanoTX.getText().trim();
-        String peso = pesoTX.getText().trim();
-        String especie = especieTX.getText().trim();
-        String dueno = duenoTX.getText().trim();
-
-        if (color.isEmpty() || raza.isEmpty() || tamano.isEmpty() || peso.isEmpty() || especie.isEmpty() || dueno.isEmpty()) {
-
-            utilidades.mostrarAlerta("Error", "Campos vacíos", "Por favor, complete todos los campos.");
-            return;
-        }
-
         try {
 
+            String color = colorTX.getText().trim();
+            String raza = razaTX.getText().trim();
+            String tamaño = comboTamaño.getValue();
+            String peso = SpinnerPeso.getValue();
+            String dueno = duenoTX.getText().trim();
+
+            validarCampos();
+
             DueñoDAO dueñoDAO = new DueñoDAO();
-            DueñoDTO dueñoDTO = dueñoDAO.buscarDueñoPorNombre(dueno);
+            DueñoDTO dueñoDTO = dueñoDAO.buscarDueñoPorTelefono(dueno);
 
-            if (dueñoDTO.getIdDueño() == -1) {
-
-                utilidades.mostrarAlerta("Error", "Dueño no registrado", "Por favor registre al dueño antes. ");
-
-            } else {
-
-                int idDueno = dueñoDTO.getIdDueño();
-                AnimalDAO animalDAO = new AnimalDAO();
-                AnimalDTO nuevoAnimal = new AnimalDTO(0, color, raza, tamano, peso, especie, idDueno);
-                boolean exito = animalDAO.insertarAnimal(nuevoAnimal);
-
-                if (exito) {
-
-                    utilidades.mostrarAlerta("Éxito", "Registro exitoso", "El animal ha sido registrado correctamente.");
-                    limpiarCampos();
-
-                } else {
-
-                    utilidades.mostrarAlerta("Error", "Registro fallido", "No se pudo registrar el animal.");
-                }
+            if (dueñoDTO == null) {
+                utilidades.mostrarAlerta("Error", "Dueño no encontrado", "El dueño especificado no existe.");
+                return;
             }
 
-        } catch (NumberFormatException e) {
+            String tipoAnimal = obtenerTipoAnimal();
 
-            utilidades.mostrarAlerta("Error", "Formato inválido", "El ID del dueño debe ser un número.");
+            if (tipoAnimal == null) {
+                utilidades.mostrarAlerta("Error", "Tipo de animal no seleccionado", "Por favor, seleccione un tipo de animal.");
+                return;
+            }
 
-        } catch (SQLException | IOException e) {
+            AnimalDTO nuevoAnimal = new AnimalDTO(
+                    0,
+                    color,
+                    raza,
+                    tamaño,
+                    peso,
+                    tipoAnimal,
+                    dueñoDTO.getIdDueño()
+            );
 
-            utilidades.mostrarAlerta("Error", "Error de conexión", "No se pudo conectar a la base de datos.");
+            AnimalDAO animalDAO = new AnimalDAO();
+            animalDAO.insertarAnimal(nuevoAnimal);
+
+            utilidades.mostrarAlerta("Éxito", "Registro exitoso", "El animal ha sido registrado correctamente.");
+
+        } catch (SQLException e) {
+            utilidades.mostrarAlerta("Error de base de datos", "Error al registrar el animal", e.getMessage());
+        } catch (IOException e) {
+            utilidades.mostrarAlerta("Error de IO", "Error al cargar la interfaz", e.getMessage());
         }
+
+
     }
 
-    public void validarCampos() {
+    private String obtenerTipoAnimal() {
 
-        String color = colorTX.getText().trim();
-        String raza = razaTX.getText().trim();
-        String tamano = tamanoTX.getText().trim();
-        String peso = pesoTX.getText().trim();
-        String especie = especieTX.getText().trim();
-        String dueno = duenoTX.getText().trim();
+        if (grupoAnimales.getSelectedToggle() == null) {
+            return null;
+        }
+
+        RadioButton seleccionado = (RadioButton) grupoAnimales.getSelectedToggle();
+        return seleccionado.getText();
+    }
+
+
+
+    public boolean validarCampos() {
 
         Validaciones validaciones = new Validaciones();
 
-        if (color.isEmpty() || raza.isEmpty() || tamano.isEmpty() || peso.isEmpty() || especie.isEmpty() || dueno.isEmpty()) {
+        String color = colorTX.getText().trim();
+        String raza = razaTX.getText().trim();
+        String tamaño = comboTamaño.getValue();
+        String peso = SpinnerPeso.getValue();
+        String dueno = duenoTX.getText().trim();
 
-            utilidades.mostrarAlerta("Error", "Campos vacíos", "Por favor, complete todos los campos.");
-            return;
+        if (color.isEmpty() || raza.isEmpty() || tamaño == null || peso == null || dueno.isEmpty()) {
+            utilidades.mostrarAlerta("Error", "Campos incompletos", "Por favor, complete todos los campos.");
+            return false;
         }
 
+        if (!validaciones.validarSoloAlfabeticos(color)) {
+            utilidades.mostrarAlerta("Error", "Color inválido", "El color contiene caracteres no permitidos.");
+            return false;
+        }
+
+        if (!validaciones.validarSoloAlfabeticos(raza)) {
+            utilidades.mostrarAlerta("Error", "Raza inválida", "La raza contiene caracteres no permitidos.");
+            return false;
+        }
+
+        if (!validaciones.validarNumeroTelefono(dueno)) {
+            utilidades.mostrarAlerta("Error", "Dueño inválido", "El dueño contiene caracteres no permitidos.");
+            return false;
+        }
+
+        return true;
+
 
     }
 
-    private void limpiarCampos() {
 
-        colorTX.clear();
-        razaTX.clear();
-        tamanoTX.clear();
-        pesoTX.clear();
-        especieTX.clear();
-        duenoTX.clear();
-    }
 
     @FXML
     private void cancelarRegistro() {

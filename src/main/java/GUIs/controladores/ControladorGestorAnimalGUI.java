@@ -171,6 +171,7 @@ public class ControladorGestorAnimalGUI {
         } catch (IOException e) {
 
             mostrarAlerta("Error", "Ocurrió un error", "No se pudo cargar la ventana.");
+            e.printStackTrace();
         }
     }
 
