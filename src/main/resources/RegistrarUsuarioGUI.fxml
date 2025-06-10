@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="728.0" prefWidth="750.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorRegistroUsuarioGUI">
+      <Button fx:id="cancelarBT" layoutX="485.0" layoutY="696.0" onAction="#cancelarRegistro" style="-fx-font-size: 14; -fx-pref-width: 100; -fx-pref-height: 35; -fx-background-color: #e0e0e0;" text="Cancelar" />
+
+    <!-- Panel principal con sombra -->
+    <Pane layoutX="50.0" layoutY="30.0" prefHeight="645.0" prefWidth="650.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0)">
+
+        <!-- Encabezado -->
+        <HBox alignment="CENTER" layoutX="0.0" layoutY="27.0" prefHeight="53.0" prefWidth="650.0" style="-fx-background-color: #1558B0; -fx-background-radius: 10 10 0 0;">
+            <Label text="Registro de Usuario" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+        </HBox>
+
+        <!-- Contenedor de campos de formulario -->
+        <VBox layoutX="50.0" layoutY="100.0" prefWidth="550.0" spacing="15">
+            <!-- Tipo de usuario -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-weight: bold; -fx-min-width: 150;" text="Tipo de Usuario:">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="comboTipoUsuario" layoutX="180.0" layoutY="75.0" onAction="#cambiarTipoUsuario" prefWidth="200.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Secretaria" />
+                            <String fx:value="Veterinario" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <!-- Campos comunes -->
+            <GridPane hgap="10" prefWidth="550.0" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" minWidth="150.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="350.0" />
+                </columnConstraints>
+
+                <!-- Fila 1: Usuario -->
+                <Label style="-fx-font-weight: bold;" text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="usuarioTX" promptText="Ingrese nombre de usuario" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <!-- Fila 2: Contraseña -->
+                <Label style="-fx-font-weight: bold;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <PasswordField fx:id="contrasenaTX" promptText="Ingrese contraseña" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <!-- Fila 3: Nombre -->
+                <Label style="-fx-font-weight: bold;" text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="nombreTX" promptText="Ingrese nombre(s)" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <!-- Fila 4: Apellidos -->
+                <Label style="-fx-font-weight: bold;" text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="apellidosTX" promptText="Ingrese apellidos" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+
+            <!-- Campos específicos para Secretaria -->
+            <VBox fx:id="camposSecretaria" prefWidth="550.0" spacing="10">
+                <GridPane hgap="10" prefWidth="550.0" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="150.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="350.0" />
+                    </columnConstraints>
+
+                    <!-- Fila 1: Número INE -->
+                    <Label style="-fx-font-weight: bold;" text="Número INE:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="ineTX" promptText="Ingrese número de INE" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <!-- Fila 2: Teléfono -->
+                    <Label style="-fx-font-weight: bold;" text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="telefonoSecTX" promptText="Ingrese teléfono (10 dígitos)" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            </VBox>
+
+            <!-- Campos específicos para Veterinario -->
+            <VBox fx:id="camposVeterinario" prefWidth="550.0" spacing="10" visible="false">
+                <GridPane hgap="10" prefWidth="550.0" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="150.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="350.0" />
+                    </columnConstraints>
+
+                    <!-- Fila 1: Cédula -->
+                    <Label style="-fx-font-weight: bold;" text="Cédula Profesional:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="cedulaTX" promptText="Ingrese cédula profesional" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <!-- Fila 2: Teléfono Celular -->
+                    <Label style="-fx-font-weight: bold;" text="Teléfono Celular:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="telCelularTX" promptText="Ingrese teléfono celular" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <!-- Fila 3: Teléfono Emergencia -->
+                    <Label style="-fx-font-weight: bold;" text="Teléfono Emergencia:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="telEmergenciaTX" promptText="Ingrese teléfono de emergencia" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            </VBox>
+
+            <!-- Dirección -->
+            <Label style="-fx-font-weight: bold; -fx-padding: 10 0 0 0;" text="Dirección:" />
+            <GridPane hgap="10" prefWidth="550.0" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" minWidth="150.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="350.0" />
+                </columnConstraints>
+
+                <!-- Fila 1: Calle -->
+                <Label style="-fx-font-weight: bold;" text="Calle:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="calleTX" promptText="Ingrese calle" style="-fx-font-size: 14; -fx-pref-height: 35;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <!-- Fila 2: Número y Colonia -->
+                <Label style="-fx-font-weight: bold;" text="Número/Colonia:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <TextField fx:id="numeroTX" promptText="Número" style="-fx-font-size: 14; -fx-pref-height: 35; -fx-pref-width: 100;" />
+                    <TextField fx:id="coloniaTX" promptText="Colonia" style="-fx-font-size: 14; -fx-pref-height: 35; -fx-hgrow: ALWAYS;" />
+                </HBox>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+        </VBox>
+
+        <!-- Botones -->
+        <HBox alignment="CENTER_RIGHT" layoutX="350.0" layoutY="520.0" prefWidth="250.0" spacing="15" />
+    </Pane>
+      <Button fx:id="registrarBT" layoutX="609.0" layoutY="696.0" onAction="#registrarUsuario" style="-fx-font-size: 14; -fx-pref-width: 100; -fx-pref-height: 35; -fx-background-color: #1558B0; -fx-text-fill: white;" text="Registrar" />
+</AnchorPane>

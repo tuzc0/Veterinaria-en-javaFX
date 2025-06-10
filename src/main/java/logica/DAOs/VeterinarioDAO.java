@@ -16,7 +16,7 @@ public class VeterinarioDAO {
 
     public boolean insertarVeterinario(VeterinarioDTO veterinario) throws SQLException, IOException {
 
-        String consultaSQL = "INSERT INTO veterinario (idVeterinario, numeroCedulaProfesional, nombre, apellidos, telefonoCelular, telefonoDeEmergencia, usuario, contrasena, calle, numero, colonia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String consultaSQL = "INSERT INTO veterinario (idVeterinario, numeroCedulaProfesional, nombre, apellidos, telefonoCelular, telefonoEmergencia, usuario, contraseña, calle, numero, colonia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         boolean veterinarioInsertado = false;
 
         try {
@@ -90,9 +90,9 @@ public class VeterinarioDAO {
                         resultadoConsulta.getString("nombre"),
                         resultadoConsulta.getString("apellidos"),
                         resultadoConsulta.getString("telefonoCelular"),
-                        resultadoConsulta.getString("telefonoDeEmergencia"),
+                        resultadoConsulta.getString("telefonoEmergencia"),
                         resultadoConsulta.getString("usuario"),
-                        resultadoConsulta.getString("contrasena"),
+                        resultadoConsulta.getString("contraseña"),
                         resultadoConsulta.getString("calle"),
                         resultadoConsulta.getString("numero"),
                         resultadoConsulta.getString("colonia")
@@ -130,9 +130,9 @@ public class VeterinarioDAO {
                         resultadoConsulta.getString("nombre"),
                         resultadoConsulta.getString("apellidos"),
                         resultadoConsulta.getString("telefonoCelular"),
-                        resultadoConsulta.getString("telefonoDeEmergencia"),
+                        resultadoConsulta.getString("telefonoEmergencia"),
                         resultadoConsulta.getString("usuario"),
-                        resultadoConsulta.getString("contrasena"),
+                        resultadoConsulta.getString("contraseña"),
                         resultadoConsulta.getString("calle"),
                         resultadoConsulta.getString("numero"),
                         resultadoConsulta.getString("colonia")
@@ -168,9 +168,9 @@ public class VeterinarioDAO {
                         resultadoConsulta.getString("nombre"),
                         resultadoConsulta.getString("apellidos"),
                         resultadoConsulta.getString("telefonoCelular"),
-                        resultadoConsulta.getString("telefonoDeEmergencia"),
+                        resultadoConsulta.getString("telefonoEmergencia"),
                         resultadoConsulta.getString("usuario"),
-                        resultadoConsulta.getString("contrasena"),
+                        resultadoConsulta.getString("contraseña"),
                         resultadoConsulta.getString("calle"),
                         resultadoConsulta.getString("numero"),
                         resultadoConsulta.getString("colonia")

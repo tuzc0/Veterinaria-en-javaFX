@@ -61,4 +61,12 @@ public class VeterinarioDTO {
 
     public String getColonia() { return colonia; }
     public void setColonia(String colonia) { this.colonia = colonia; }
+
+    @Override
+    public String toString() {
+        return
+                nombre+ " " +
+                apellidos + '\'';
+
+    }
 }

@@ -15,7 +15,7 @@ public class SecretarioDAO {
 
     public boolean insertarSecretario(SecretarioDTO secretario) throws SQLException, IOException {
 
-        String consultaSQL = "INSERT INTO secretaria (idSecretario, numeroINE, nombre, apellidos, telefono, usuario, contrasena, calle, numero, colonia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String consultaSQL = "INSERT INTO secretaria (idSecretaria, numeroINE, nombre, apellidos, telefono, usuario, contraseña, calle, numero, colonia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         boolean secretarioInsertado = false;
 
         try {
@@ -47,7 +47,7 @@ public class SecretarioDAO {
 
     public boolean eliminarSecretarioPorId(int idSecretario) throws SQLException, IOException {
 
-        String consultaSQL = "DELETE FROM secretaria WHERE idSecretario = ?";
+        String consultaSQL = "DELETE FROM secretaria WHERE idSecretaria = ?";
         boolean secretarioEliminado = false;
 
         try {
@@ -71,7 +71,7 @@ public class SecretarioDAO {
     public SecretarioDTO buscarSecretarioPorId(int idSecretario) throws SQLException, IOException {
 
         SecretarioDTO secretario = new SecretarioDTO(-1, "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
-        String consultaSQL = "SELECT * FROM secretaria WHERE idSecretario = ?";
+        String consultaSQL = "SELECT * FROM secretaria WHERE idSecretaria = ?";
 
         try {
 
@@ -83,13 +83,13 @@ public class SecretarioDAO {
             if (resultadoConsulta.next()) {
 
                 secretario = new SecretarioDTO(
-                        resultadoConsulta.getInt("idSecretario"),
+                        resultadoConsulta.getInt("idSecretaria"),
                         resultadoConsulta.getString("numeroINE"),
                         resultadoConsulta.getString("nombre"),
                         resultadoConsulta.getString("apellidos"),
                         resultadoConsulta.getString("telefono"),
                         resultadoConsulta.getString("usuario"),
-                        resultadoConsulta.getString("contrasena"),
+                        resultadoConsulta.getString("contraseña"),
                         resultadoConsulta.getString("calle"),
                         resultadoConsulta.getString("numero"),
                         resultadoConsulta.getString("colonia")
@@ -123,13 +123,13 @@ public class SecretarioDAO {
             if (resultadoConsulta.next()) {
 
                 secretario = new SecretarioDTO(
-                        resultadoConsulta.getInt("idSecretario"),
+                        resultadoConsulta.getInt("idSecretaria"),
                         resultadoConsulta.getString("numeroINE"),
                         resultadoConsulta.getString("nombre"),
                         resultadoConsulta.getString("apellidos"),
                         resultadoConsulta.getString("telefono"),
                         resultadoConsulta.getString("usuario"),
-                        resultadoConsulta.getString("contrasena"),
+                        resultadoConsulta.getString("contraseña"),
                         resultadoConsulta.getString("calle"),
                         resultadoConsulta.getString("numero"),
                         resultadoConsulta.getString("colonia")
@@ -160,13 +160,13 @@ public class SecretarioDAO {
             while (resultadoConsulta.next()) {
 
                 SecretarioDTO secretario = new SecretarioDTO(
-                        resultadoConsulta.getInt("idSecretario"),
+                        resultadoConsulta.getInt("idSecretaria"),
                         resultadoConsulta.getString("numeroINE"),
                         resultadoConsulta.getString("nombre"),
                         resultadoConsulta.getString("apellidos"),
                         resultadoConsulta.getString("telefono"),
                         resultadoConsulta.getString("usuario"),
-                        resultadoConsulta.getString("contrasena"),
+                        resultadoConsulta.getString("contraseña"),
                         resultadoConsulta.getString("calle"),
                         resultadoConsulta.getString("numero"),
                         resultadoConsulta.getString("colonia")

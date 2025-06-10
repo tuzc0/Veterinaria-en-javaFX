@@ -1,5 +1,6 @@
 package GUIs.controladores;
 
+import GUIauxiliar.Utilidades;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -20,6 +21,11 @@ public class ControladorLoginGUI {
     @FXML private ImageView llaveIcono;
     @FXML private TextField nombreUsuarioTX;
     @FXML private PasswordField contrasenaTX;
+
+    static int idSecretario = -1;
+    static int idVeterinario = -1;
+
+    Utilidades utilidades = new Utilidades();
 
     @FXML
     public void initialize() {
@@ -55,13 +61,18 @@ public class ControladorLoginGUI {
             SecretarioDTO secretario = secretarioDAO.buscarSecretarioPorUsuarioYContraseña(usuario, contrasena);
 
             if (secretario.getIdSecretario() != -1) {
+
+                idSecretario = secretario.getIdSecretario();
                 mostrarAlerta("Éxito", "Inicio de sesión correcto", "Bienvenido, " + secretario.getNombre() + " (Secretario).");
+                utilidades.mostrarVentana("/MenuSecretariaGUI.fxml");
                 return;
             }
 
             VeterinarioDTO veterinario = veterinarioDAO.buscarVeterinarioPorUsuarioYContraseña(usuario, contrasena);
 
             if (veterinario.getIdVeterinario() != -1) {
+
+                idVeterinario = veterinario.getIdVeterinario();
                 mostrarAlerta("Éxito", "Inicio de sesión correcto", "Bienvenido, " + veterinario.getNombre() + " (Veterinario).");
                 return;
             }
@@ -71,6 +82,7 @@ public class ControladorLoginGUI {
         } catch (SQLException | IOException e) {
 
             mostrarAlerta("Error", "Error de conexión", "No se pudo conectar a la base de datos ");
+            e.printStackTrace();
 
         }
     }

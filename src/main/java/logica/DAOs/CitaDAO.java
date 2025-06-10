@@ -16,7 +16,7 @@ public class CitaDAO {
 
     public boolean insertarCita(CitaDTO cita) throws SQLException, IOException {
 
-        String consultaSQL = "INSERT INTO cita (idCita, fecha, tipo, motivo, idAnimal, idSecretario, idVeterinario, estatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String consultaSQL = "INSERT INTO cita (idCita, fecha, tipoCita, motivoCita, idAnimal, idSecretario, idVeterinario, estatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         boolean citaInsertada = false;
 
         try {
@@ -69,7 +69,7 @@ public class CitaDAO {
 
     public boolean modificarCita(CitaDTO cita) throws SQLException, IOException {
 
-        String consultaSQL = "UPDATE cita SET fecha = ?, tipo = ?, motivo = ?, idAnimal = ?, idSecretario = ?, idVeterinario = ?, estatus = ? WHERE idCita = ?";
+        String consultaSQL = "UPDATE cita SET fecha = ?, tipoCita = ?, motivoCita = ?, idAnimal = ?, idSecretario = ?, idVeterinario = ?, estatus = ? WHERE idCita = ?";
         boolean citaModificada = false;
 
         try {
@@ -114,8 +114,8 @@ public class CitaDAO {
                 cita = new CitaDTO(
                         resultadoConsulta.getInt("idCita"),
                         resultadoConsulta.getTimestamp("fecha"),
-                        resultadoConsulta.getString("tipo"),
-                        resultadoConsulta.getString("motivo"),
+                        resultadoConsulta.getString("tipoCita"),
+                        resultadoConsulta.getString("motivoCita"),
                         resultadoConsulta.getInt("idAnimal"),
                         resultadoConsulta.getInt("idSecretario"),
                         resultadoConsulta.getInt("idVeterinario"),
@@ -149,8 +149,8 @@ public class CitaDAO {
                 CitaDTO cita = new CitaDTO(
                         resultadoConsulta.getInt("idCita"),
                         resultadoConsulta.getTimestamp("fecha"),
-                        resultadoConsulta.getString("tipo"),
-                        resultadoConsulta.getString("motivo"),
+                        resultadoConsulta.getString("tipoCita"),
+                        resultadoConsulta.getString("motivoCita"),
                         resultadoConsulta.getInt("idAnimal"),
                         resultadoConsulta.getInt("idSecretario"),
                         resultadoConsulta.getInt("idVeterinario"),
