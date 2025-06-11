@@ -19,10 +19,7 @@ public class main {
             ReporteVentasDAO reporteVentasDAO = new ReporteVentasDAO(conexionBD);
 
             // 1. Probar registrar compra (usa IDs válidos existentes)
-            int idProducto = 1;
-            int idDueno = 1;
-            Timestamp fecha = Timestamp.valueOf(LocalDateTime.now());
-            dao.registrarCompra(idProducto, idDueno, fecha);
+
 
             // 2. Verificar veterinarios disponibles (en fecha/hora futura)
             Timestamp cita = Timestamp.valueOf("2025-06-12 10:00:00");

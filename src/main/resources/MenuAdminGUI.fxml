@@ -30,7 +30,7 @@
             </graphic>
          </Button>
 
-         <!-- Espacio para futuros botones si los añades después -->
+
          <VBox visible="false" managed="false">
             <Button text="Botón futuro 1" />
             <Button text="Botón futuro 2" />

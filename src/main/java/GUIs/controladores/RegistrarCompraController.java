@@ -15,10 +15,11 @@ import java.time.LocalDateTime;
 
 public class RegistrarCompraController {
 
-    @FXML private DatePicker fechaPicker;
+    @FXML private Label lbFecha;
     @FXML private Label mensajeLB;
     @FXML private ComboBox<ProductoDTO> comboProducto;
     @FXML private ComboBox<DueñoDTO> comboDueño;
+    @FXML private Spinner<Integer> spinnerCantidad;
 
     Utilidades utilidades = new Utilidades();
 
@@ -27,6 +28,15 @@ public class RegistrarCompraController {
     public void initialize() {
         cargarProductos();
         cargarDueños();
+        inicializarSpinner();
+        lbFecha.setText(""+LocalDateTime.now().toLocalDate());
+    }
+
+    public void inicializarSpinner() {
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
+        spinnerCantidad.setValueFactory(valueFactory);
+        spinnerCantidad.setEditable(true);
+        spinnerCantidad.getEditor().setText("1");
     }
 
 
@@ -41,6 +51,7 @@ public class RegistrarCompraController {
             ProcedimientosDAO dao = new ProcedimientosDAO(conexionBD);
             int idProducto = comboProducto.getSelectionModel().getSelectedItem().getIdProducto();
             int idDueno = comboDueño.getSelectionModel().getSelectedItem().getIdDueño();
+            int cantidad = spinnerCantidad.getValue();
 
             int existencia = productoDAO.validarDisponibilidadProducto(idProducto);
 
@@ -49,8 +60,8 @@ public class RegistrarCompraController {
                 return;
             }
 
-            LocalDateTime fechaHora = fechaPicker.getValue().atTime(java.time.LocalTime.now());
-            dao.registrarCompra(idProducto, idDueno, Timestamp.valueOf(fechaHora));
+            LocalDateTime fechaHora = LocalDateTime.now();
+            dao.registrarCompra(idProducto, idDueno, Timestamp.valueOf(fechaHora), cantidad);
             mensajeLB.setText("Compra registrada exitosamente.");
             utilidades.mostrarAlerta("Compra registrada", "La compra del producto con ID " + idProducto + " ha sido registrada exitosamente.","Información");
 

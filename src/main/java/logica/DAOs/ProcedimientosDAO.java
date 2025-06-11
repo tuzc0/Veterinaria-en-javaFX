@@ -1,5 +1,6 @@
 package logica.DAOs;
 
+import GUIauxiliar.Utilidades;
 import accesoadatos.ConexionBaseDeDatos;
 
 import java.sql.*;
@@ -12,19 +13,34 @@ public class ProcedimientosDAO {
         this.conexion = conexionBD.getConnection();
     }
 
+    Utilidades utilidades = new Utilidades();
 
-    public void registrarCompra(int idProducto, int idDueno, Timestamp fecha) {
-        String sql = "{CALL registrarCompra(?, ?, ?)}";
+
+    public void registrarCompra(int idProducto, int idDueno, Timestamp fecha, int cantidad) {
+        String sql = "{CALL registrarCompra(?, ?, ?, ?)}";
         try (CallableStatement stmt = conexion.prepareCall(sql)) {
             stmt.setInt(1, idProducto);
             stmt.setInt(2, idDueno);
             stmt.setTimestamp(3, fecha);
+            stmt.setInt(4, cantidad);
+
             stmt.execute();
-            System.out.println("Compra registrada exitosamente.");
+
+            utilidades.mostrarAlerta(
+                    "Compra Registrada",
+                    "La compra se ha registrado correctamente.",
+                    "Se compraron " + cantidad + " unidades."
+            );
         } catch (SQLException e) {
-            System.err.println("Error al registrar la compra: " + e.getMessage());
+            utilidades.mostrarAlerta(
+                    "Error al Registrar Compra",
+                    "No fue posible registrar la compra.",
+                    "Verifica la existencia del producto o intenta nuevamente.\n" +
+                            "Detalle: " + e.getMessage()
+            );
         }
     }
+
 
 
     public void verificarVeterinariosDisponibles(Timestamp fechaDeseada) {
@@ -33,10 +49,18 @@ public class ProcedimientosDAO {
             stmt.setTimestamp(1, fechaDeseada);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.println("Veterinario disponible: " + rs.getString("nombre") + " " + rs.getString("apellidos"));
+                utilidades.mostrarAlerta(
+                        "Veterinario Disponible",
+                        "Veterinario: " + rs.getString("nombre") + " " + rs.getString("apellido"),
+                        "Fecha y hora disponibles: " + rs.getTimestamp("fecha_hora")
+                );
             }
         } catch (SQLException e) {
-            System.err.println("Error al verificar disponibilidad de veterinarios: " + e.getMessage());
+            utilidades.mostrarAlerta(
+                    "Error al Verificar Disponibilidad",
+                    "Ocurrió un error al verificar la disponibilidad de los veterinarios.",
+                    "Por favor, intente nuevamente."
+            );
         }
     }
 
@@ -50,7 +74,11 @@ public class ProcedimientosDAO {
                 return rs.getInt("total");
             }
         } catch (SQLException e) {
-            System.err.println("Error al contar productos: " + e.getMessage());
+            utilidades.mostrarAlerta(
+                    "Error al Contar Productos",
+                    "Ocurrió un error al contar los productos.",
+                    "Por favor, intente nuevamente."
+            );
         }
         return 0;
     }
@@ -67,7 +95,11 @@ public class ProcedimientosDAO {
                 return rs.getInt("total");
             }
         } catch (SQLException e) {
-            System.err.println("Error al contar citas: " + e.getMessage());
+            utilidades.mostrarAlerta(
+                    "Error al Contar Citas",
+                    "Ocurrió un error al contar las citas del veterinario.",
+                    "Por favor, intente nuevamente."
+            );
         }
         return 0;
     }
