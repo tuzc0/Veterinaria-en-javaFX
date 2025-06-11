@@ -66,7 +66,7 @@ public class VeterinarioDTO {
     public String toString() {
         return
                 nombre+ " " +
-                apellidos + '\'';
+                apellidos;
 
     }
 }

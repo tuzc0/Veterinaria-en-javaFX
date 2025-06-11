@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="GUIs.controladores.ControladorListaProductosPendientesGUI"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="437.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorListaProductosPendientesGUI">
     <children>
-        <TableView fx:id="tablaProductosPendientes" layoutX="25.0" layoutY="25.0" prefWidth="550.0" prefHeight="350.0">
+        <TableView fx:id="tablaProductosPendientes" layoutX="25.0" layoutY="54.0" prefHeight="350.0" prefWidth="550.0">
             <columns>
-                <TableColumn fx:id="columnaIdProducto" text="ID Producto" prefWidth="200.0"/>
-                <TableColumn fx:id="columnaFechaRegistro" text="Fecha Registro" prefWidth="330.0"/>
+                <TableColumn fx:id="columnaIdProducto" prefWidth="91.199951171875" text="ID Producto" />
+            <TableColumn fx:id="columnaNombreProducto" prefWidth="276.00006103515625" text="Nombre producto" />
+                <TableColumn fx:id="columnaFechaRegistro" prefWidth="181.60001220703123" text="Fecha Registro" />
             </columns>
         </TableView>
+      <Label layoutX="208.0" layoutY="14.0" text="Productos Pendientes">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -41,4 +41,9 @@ public class ProductoDTO {
 
     public int getExistencia() { return existencia; }
     public void setExistencia(int existencia) { this.existencia = existencia; }
+
+    @Override
+    public String toString() {
+        return this.nombre; // Asegúrate de que "nombre" sea el atributo que deseas mostrar
+    }
 }

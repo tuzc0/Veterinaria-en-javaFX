@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUIs.controladores.ControladorInsertarProductoGUI"
-            prefHeight="400.0" prefWidth="500.0">
+<AnchorPane prefHeight="469.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorInsertarProductoGUI">
     <children>
-        <VBox alignment="CENTER" spacing="12.0" layoutX="50.0" layoutY="30.0" prefWidth="400.0">
+        <VBox alignment="CENTER" layoutX="50.0" layoutY="30.0" prefWidth="400.0" spacing="12.0">
             <children>
-                <Label text="Registrar Producto" styleClass="label-titulo">
+                <Label styleClass="label-titulo" text="Registrar Producto">
                     <font>
-                        <Font size="20.0"/>
+                        <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
+            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="414.0" text="Nombre" />
                 <TextField fx:id="campoNombre" promptText="Nombre" />
-                <TextField fx:id="campoPrecio" promptText="Precio" />
-                <TextField fx:id="campoEspecie" promptText="Especie" />
-                <TextField fx:id="campoTipo" promptText="Tipo" />
+            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="414.0" text="Precio" />
+            <Spinner fx:id="spinnerPrecio" prefHeight="26.0" prefWidth="409.0" />
+            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="414.0" text="Especie" />
+            <ComboBox fx:id="comboEspecie" prefHeight="26.0" prefWidth="408.0" />
+            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="414.0" text="Tipo" />
+            <ComboBox fx:id="comboTipo" prefHeight="26.0" prefWidth="418.0" />
+            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="414.0" text="Marca" />
                 <TextField fx:id="campoMarca" promptText="Marca" />
-                <TextField fx:id="campoExistencia" promptText="Existencia" />
-                <HBox spacing="20.0" alignment="CENTER">
+            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="414.0" text="Existencia" />
+            <Spinner fx:id="spinnerExistencia" prefHeight="26.0" prefWidth="418.0" />
+                <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Button fx:id="botonGuardar" text="Guardar" onAction="#guardarProducto" />
-                        <Button fx:id="botonCancelar" text="Cancelar" onAction="#cancelarRegistro" />
+                        <Button fx:id="botonGuardar" onAction="#guardarProducto" text="Guardar" />
+                        <Button fx:id="botonCancelar" onAction="#cancelarRegistro" text="Cancelar" />
                     </children>
                 </HBox>
-                <Label fx:id="etiquetaMensaje" textFill="red"/>
+                <Label fx:id="etiquetaMensaje" textFill="red" />
             </children>
         </VBox>
     </children>

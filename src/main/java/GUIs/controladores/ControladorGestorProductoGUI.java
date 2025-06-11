@@ -29,7 +29,7 @@ public class ControladorGestorProductoGUI {
     @FXML private TextField campoIdEditable, campoNombreEditable, campoPrecioEditable, campoEspecieEditable,
             campoTipoEditable, campoMarcaEditable, campoExistenciaEditable;
 
-    @FXML private Button botonGuardar, botonCancelar;
+    @FXML private Button botonGuardar, botonCancelar, botonEliminarProducto, botonEditarProducto, botonRegistrarProducto;
 
     private final ProductoDAO productoDAO = new ProductoDAO();
     private ObservableList<ProductoDTO> productos = FXCollections.observableArrayList();
@@ -102,6 +102,7 @@ public class ControladorGestorProductoGUI {
     }
 
     private void setEdicionVisible(boolean visible) {
+
         campoIdEditable.setVisible(visible);
         campoNombreEditable.setVisible(visible);
         campoPrecioEditable.setVisible(visible);
@@ -120,10 +121,16 @@ public class ControladorGestorProductoGUI {
 
         botonGuardar.setVisible(visible);
         botonCancelar.setVisible(visible);
+
+        botonEliminarProducto.setVisible(!visible);
+        botonEditarProducto.setVisible(!visible);
+        botonRegistrarProducto.setVisible(!visible);
+
     }
 
     @FXML
     private void editarProducto() {
+
         if (productoSeleccionado == null) return;
         campoIdEditable.setText(String.valueOf(productoSeleccionado.getIdProducto()));
         campoNombreEditable.setText(productoSeleccionado.getNombre());

@@ -164,4 +164,28 @@ public class ProductoDAO {
 
         return productos;
     }
+
+    public int validarDisponibilidadProducto(int idProducto) throws SQLException, IOException {
+        int existencia = -1;
+        String consultaSQL = "SELECT existencia FROM producto WHERE idProducto = ?";
+
+        try {
+            conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
+            consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL);
+            consultaPreparada.setInt(1, idProducto);
+            resultadoConsulta = consultaPreparada.executeQuery();
+
+            if (resultadoConsulta.next()) {
+                existencia = resultadoConsulta.getInt("existencia");
+            } else {
+                throw new SQLException("El producto con ID " + idProducto + " no existe.");
+            }
+        } finally {
+            if (consultaPreparada != null) {
+                consultaPreparada.close();
+            }
+        }
+
+        return existencia;
+    }
 }
