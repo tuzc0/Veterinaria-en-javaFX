@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 
-<Pane prefHeight="622.0" prefWidth="971.0" stylesheets="@estiloslogin.css"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="GUIs.controladores.ControladorGestorProductoGUI">
+<Pane prefHeight="622.0" prefWidth="971.0" stylesheets="@estiloslogin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorGestorProductoGUI">
     <children>
         <VBox layoutX="37.0" layoutY="80.0" prefHeight="437.0" prefWidth="910.0">
             <children>
@@ -16,17 +13,14 @@
                     <children>
                         <HBox prefHeight="47.0" prefWidth="822.0">
                             <children>
-                                <TextField fx:id="campoBusquedaProducto" prefHeight="26.0" prefWidth="651.0"
-                                           promptText="Ingrese nombre o marca" styleClass="text-field" />
+                                <TextField fx:id="campoBusquedaProducto" prefHeight="26.0" prefWidth="651.0" promptText="Ingrese nombre o marca" styleClass="text-field" />
                             </children>
                         </HBox>
                         <HBox prefHeight="46.0" prefWidth="395.0">
                             <children>
-                                <Button fx:id="botonBuscarProducto" mnemonicParsing="false" onAction="#buscarProducto"
-                                        prefHeight="28.0" prefWidth="200.0" styleClass="button" text="Buscar">
+                                <Button fx:id="botonBuscarProducto" mnemonicParsing="false" onAction="#buscarProducto" prefHeight="28.0" prefWidth="200.0" styleClass="button" text="Buscar">
                                     <graphic>
-                                        <ImageView fitHeight="20.0" fitWidth="20.0"
-                                                   pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <Image url="https://cdn-icons-png.flaticon.com/512/751/751463.png" />
                                         </ImageView>
                                     </graphic>
@@ -126,11 +120,9 @@
                                     <children>
                                         <HBox>
                                             <children>
-                                                <Button fx:id="botonEditarProducto" onAction="#editarProducto"
-                                                        styleClass="button" text="Editar" />
+                                                <Button fx:id="botonEditarProducto" onAction="#editarProducto" styleClass="button" text="Editar" />
                                                 <HBox prefWidth="29.0" />
-                                                <Button fx:id="botonEliminarProducto" onAction="#eliminarProducto"
-                                                        styleClass="button" text="Eliminar" />
+                                                <Button fx:id="botonEliminarProducto" onAction="#eliminarProducto" styleClass="button" text="Eliminar" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -141,13 +133,10 @@
                 </HBox>
             </children>
         </VBox>
-        <Label layoutX="424.0" layoutY="14.0" prefHeight="45.0" prefWidth="136.0" styleClass="label-titulo" text="Productos" />
-        <Button fx:id="botonRegistrarProducto" layoutX="37.0" layoutY="533.0"
-                onAction="#abrirVentanaRegistrarProducto" styleClass="button" text="Registrar Producto" />
-        <Button fx:id="botonGuardar" layoutX="855.0" layoutY="518.0"
-                onAction="#guardarCambiosProducto" styleClass="button" text="Guardar" visible="false" />
-        <Button fx:id="botonCancelar" layoutX="754.0" layoutY="518.0"
-                onAction="#cancelarEdicionProducto" styleClass="button" text="Cancelar" visible="false" />
+        <Label layoutX="349.0" layoutY="14.0" prefHeight="45.0" prefWidth="211.0" styleClass="label-titulo" text="Productos" />
+        <Button fx:id="botonRegistrarProducto" layoutX="37.0" layoutY="533.0" onAction="#abrirVentanaRegistrarProducto" styleClass="button" text="Registrar Producto" />
+        <Button fx:id="botonGuardar" layoutX="855.0" layoutY="518.0" onAction="#guardarCambiosProducto" styleClass="button" text="Guardar" visible="false" />
+        <Button fx:id="botonCancelar" layoutX="754.0" layoutY="518.0" onAction="#cancelarEdicionProducto" styleClass="button" text="Cancelar" visible="false" />
         <Label fx:id="campoNumeroProductosSeleccionados" layoutX="406.0" layoutY="580.0" prefHeight="20.0" prefWidth="211.0">
             <font>
                 <Font size="14.0" />
