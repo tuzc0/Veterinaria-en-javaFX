@@ -15,7 +15,7 @@ public class EnfermedadesDAO {
 
     public boolean insertarEnfermedad(EnfermedadesDTO enfermedad) throws SQLException, IOException {
 
-        String consultaSQL = "INSERT INTO enfermedades (idEnfermedad, nombre, especie, tratamiento) VALUES (?, ?, ?, ?)";
+        String consultaSQL = "INSERT INTO enfermedades (idEnfermedad, nombreEnfermedad, especie, tratamiento) VALUES (?, ?, ?, ?)";
         boolean enfermedadInsertada = false;
 
         try {

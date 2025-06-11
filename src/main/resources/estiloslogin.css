@@ -46,3 +46,25 @@ ImageView {
     -fx-text-fill: #555;
 }
 
+.date-picker {
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 4px;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #e0e0e0;
+    -fx-border-radius: 0 5px 5px 0;
+    -fx-background-radius: 0 5px 5px 0;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+    -fx-font-weight: normal;
+}
+
+

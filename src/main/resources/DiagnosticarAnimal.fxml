@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" prefHeight="674.0" prefWidth="963.0" styleClass="border-pane" stylesheets="@estiloslogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+   <top>
+      <AnchorPane prefHeight="51.0" prefWidth="963.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="452.0" layoutY="8.0" prefHeight="42.0" prefWidth="200.0" styleClass="label-titulo" text="Citas">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+
+   <center>
+      <AnchorPane prefHeight="481.0" prefWidth="963.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="18.0" layoutY="65.0" prefHeight="500.0" prefWidth="640.0">
+               <children>
+                  <TableView prefHeight="509.0" prefWidth="640.0">
+                     <columns>
+                        <TableColumn prefWidth="155.2" text="Fecha" />
+                        <TableColumn prefWidth="176.8" text="Tipo" />
+                        <TableColumn prefWidth="310.4" text="Motivo" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+
+            <VBox layoutX="665.0" layoutY="56.0" prefHeight="510.0" prefWidth="274.0" spacing="5">
+               <children>
+                  <Label prefHeight="42.0" prefWidth="282.0" styleClass="label-subtitulo" text="Datos Cita:">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+
+                  <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Fecha:" />
+                  <Label prefHeight="41.0" prefWidth="291.0" />
+                  <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Tipo:" />
+                  <Label prefHeight="41.0" prefWidth="291.0" />
+                  <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Motivo:" />
+                  <Label prefHeight="41.0" prefWidth="291.0" />
+                  <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Diagnostico:" />
+                  <Label prefHeight="41.0" prefWidth="291.0" />
+                  <Label visible="false" layoutX="10.0" layoutY="319.0" prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Diagnostico:" />
+                  <ComboBox visible="false" prefHeight="30.0" prefWidth="274.0" />
+
+                  <HBox prefHeight="42.0" prefWidth="274.0" spacing="10">
+                     <children>
+                        <Button visible="false" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" styleClass="button" text="Nueva Enfermedad" />
+                        <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="119.0" styleClass="button" text="Diagnosticar" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+
+            <HBox layoutX="18.0" layoutY="10.0" prefHeight="40.0" prefWidth="906.0" spacing="10">
+               <children>
+                  <DatePicker prefHeight="38.0" prefWidth="246.0" styleClass="date-picker" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+
+   <bottom>
+      <AnchorPane prefHeight="56.0" prefWidth="923.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="21.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" styleClass="button" text="Regresar" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>
