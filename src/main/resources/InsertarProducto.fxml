@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUIs.controladores.ControladorInsertarProductoGUI"
+            prefHeight="400.0" prefWidth="500.0">
+    <children>
+        <VBox alignment="CENTER" spacing="12.0" layoutX="50.0" layoutY="30.0" prefWidth="400.0">
+            <children>
+                <Label text="Registrar Producto" styleClass="label-titulo">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="campoNombre" promptText="Nombre" />
+                <TextField fx:id="campoPrecio" promptText="Precio" />
+                <TextField fx:id="campoEspecie" promptText="Especie" />
+                <TextField fx:id="campoTipo" promptText="Tipo" />
+                <TextField fx:id="campoMarca" promptText="Marca" />
+                <TextField fx:id="campoExistencia" promptText="Existencia" />
+                <HBox spacing="20.0" alignment="CENTER">
+                    <children>
+                        <Button fx:id="botonGuardar" text="Guardar" onAction="#guardarProducto" />
+                        <Button fx:id="botonCancelar" text="Cancelar" onAction="#cancelarRegistro" />
+                    </children>
+                </HBox>
+                <Label fx:id="etiquetaMensaje" textFill="red"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

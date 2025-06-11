@@ -67,10 +67,17 @@ public class ControladorGestorProductoGUI {
             cargarProductos();
             return;
         }
-        productos.setAll(productos.filtered(p ->
-                p.getNombre().toLowerCase().contains(texto) ||
-                        p.getMarca().toLowerCase().contains(texto)
-        ));
+        try {
+            List<ProductoDTO> lista = productoDAO.listarProductos();
+            List<ProductoDTO> filtrados = lista.stream()
+                    .filter(p -> p.getNombre().toLowerCase().contains(texto) ||
+                            p.getMarca().toLowerCase().contains(texto))
+                    .toList();
+            productos.setAll(filtrados);
+            campoNumeroProductosSeleccionados.setText("Total productos: " + filtrados.size());
+        } catch (Exception e) {
+            mostrarAlerta("Error al buscar productos: " + e.getMessage());
+        }
     }
 
     private void mostrarDetallesProducto(ProductoDTO producto) {
@@ -94,6 +101,27 @@ public class ControladorGestorProductoGUI {
         campoExistenciaEncontrada.setText(String.valueOf(producto.getExistencia()));
     }
 
+    private void setEdicionVisible(boolean visible) {
+        campoIdEditable.setVisible(visible);
+        campoNombreEditable.setVisible(visible);
+        campoPrecioEditable.setVisible(visible);
+        campoEspecieEditable.setVisible(visible);
+        campoTipoEditable.setVisible(visible);
+        campoMarcaEditable.setVisible(visible);
+        campoExistenciaEditable.setVisible(visible);
+
+        campoIdEncontrado.setVisible(!visible);
+        campoNombreEncontrado.setVisible(!visible);
+        campoPrecioEncontrado.setVisible(!visible);
+        campoEspecieEncontrada.setVisible(!visible);
+        campoTipoEncontrado.setVisible(!visible);
+        campoMarcaEncontrada.setVisible(!visible);
+        campoExistenciaEncontrada.setVisible(!visible);
+
+        botonGuardar.setVisible(visible);
+        botonCancelar.setVisible(visible);
+    }
+
     @FXML
     private void editarProducto() {
         if (productoSeleccionado == null) return;
@@ -105,19 +133,10 @@ public class ControladorGestorProductoGUI {
         campoMarcaEditable.setText(productoSeleccionado.getMarca());
         campoExistenciaEditable.setText(String.valueOf(productoSeleccionado.getExistencia()));
 
-        campoIdEditable.setVisible(true);
-        campoNombreEditable.setVisible(true);
-        campoPrecioEditable.setVisible(true);
-        campoEspecieEditable.setVisible(true);
-        campoTipoEditable.setVisible(true);
-        campoMarcaEditable.setVisible(true);
-        campoExistenciaEditable.setVisible(true);
-
-        botonGuardar.setVisible(true);
-        botonCancelar.setVisible(true);
+        setEdicionVisible(true);
     }
 
-    @FXML
+        @FXML
     private void guardarCambiosProducto() {
         try {
             ProductoDTO modificado = new ProductoDTO(
@@ -139,15 +158,7 @@ public class ControladorGestorProductoGUI {
 
     @FXML
     private void cancelarEdicionProducto() {
-        campoIdEditable.setVisible(false);
-        campoNombreEditable.setVisible(false);
-        campoPrecioEditable.setVisible(false);
-        campoEspecieEditable.setVisible(false);
-        campoTipoEditable.setVisible(false);
-        campoMarcaEditable.setVisible(false);
-        campoExistenciaEditable.setVisible(false);
-        botonGuardar.setVisible(false);
-        botonCancelar.setVisible(false);
+        setEdicionVisible(false);
     }
 
     @FXML
@@ -163,8 +174,20 @@ public class ControladorGestorProductoGUI {
 
     @FXML
     private void abrirVentanaRegistrarProducto() {
-        // Implementar ventana de registro si es necesario
-        mostrarAlerta("Funcionalidad de registro no implementada.");
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/InsertarProducto.fxml"));
+            javafx.scene.Parent root = loader.load();
+
+            javafx.stage.Stage stage = new javafx.stage.Stage();
+            stage.setTitle("Registrar Producto");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+
+            cargarProductos();
+        } catch (Exception e) {
+            mostrarAlerta("No se pudo abrir la ventana de registro: " + e.getMessage());
+        }
     }
 
     private void mostrarAlerta(String mensaje) {
