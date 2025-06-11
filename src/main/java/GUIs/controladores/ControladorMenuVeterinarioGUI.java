@@ -21,6 +21,7 @@ public class ControladorMenuVeterinarioGUI {
         botonCita.setOnAction(event -> abrirVentanaDiagnosticarAnimal());
     }
 
+    @FXML
     private void abrirVentanaDiagnosticarAnimal() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DiagnosticarAnimal.fxml"));
