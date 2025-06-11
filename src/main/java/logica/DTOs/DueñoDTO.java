@@ -36,4 +36,10 @@ public class DueñoDTO {
 
     public String getColonia() { return colonia; }
     public void setColonia(String colonia) { this.colonia = colonia; }
+
+    @Override
+    public String toString() {
+        return this.nombre + " " + this.apellidos; 
+    }
 }
+

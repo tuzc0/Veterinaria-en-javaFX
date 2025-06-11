@@ -4,61 +4,83 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import logica.DAOs.ProductoDAO;
+import javafx.scene.control.TextFormatter;
 import logica.DTOs.ProductoDTO;
+
+import java.sql.SQLException;
 
 public class ControladorInsertarProductoGUI {
 
-    @FXML private TextField campoNombre;
-    @FXML private TextField campoPrecio;
-    @FXML private TextField campoEspecie;
-    @FXML private TextField campoTipo;
-    @FXML private TextField campoMarca;
-    @FXML private TextField campoExistencia;
-    @FXML private Label etiquetaMensaje;
+    @FXML
+    private TextField campoNombre;
+    @FXML
+    private TextField campoMarca;
+    @FXML
+    private Spinner<Double> spinnerPrecio;
+    @FXML
+    private ComboBox<String> comboEspecie;
+    @FXML
+    private ComboBox<String> comboTipo;
+    @FXML
+    private Spinner<Integer> spinnerExistencia;
+    @FXML
+    private Label etiquetaMensaje;
 
     private final ProductoDAO productoDAO = new ProductoDAO();
 
     @FXML
     private void initialize() {
-        campoPrecio.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.matches("\\d*(\\.\\d{0,2})?")) {
-                campoPrecio.setText(oldVal);
+
+        cargarDatos();
+
+    }
+
+    public void cargarDatos() {
+
+        spinnerPrecio.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01));
+        spinnerPrecio.getValueFactory().setConverter(new javafx.util.converter.DoubleStringConverter());
+        spinnerPrecio.setEditable(true);
+
+
+        spinnerPrecio.getEditor().setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("-?\\d*(\\.\\d*)?")) {
+                return change;
             }
-        });
-        campoExistencia.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.matches("\\d*")) {
-                campoExistencia.setText(oldVal);
+            return null;
+        }));
+
+
+        spinnerExistencia.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0));
+        spinnerExistencia.setEditable(true);
+
+
+        spinnerExistencia.getEditor().setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
             }
-        });
+            return null;
+        }));
+
+
+        comboEspecie.getItems().addAll("Perro", "Gato");
+        comboTipo.getItems().addAll("Alimento", "Accesorio", "Medicamento", "Juguete", "Higiene", "Otros");
     }
 
     @FXML
     private void guardarProducto() {
         String nombre = campoNombre.getText().trim();
-        String precioStr = campoPrecio.getText().trim();
-        String especie = campoEspecie.getText().trim();
-        String tipo = campoTipo.getText().trim();
+        float precio = spinnerPrecio.getValue().floatValue();
+        String especie = comboEspecie.getValue();
+        String tipo = comboTipo.getValue();
         String marca = campoMarca.getText().trim();
-        String existenciaStr = campoExistencia.getText().trim();
+        int existencia = spinnerExistencia.getValue();
 
-        if (nombre.isEmpty() || precioStr.isEmpty() || especie.isEmpty() ||
-                tipo.isEmpty() || marca.isEmpty() || existenciaStr.isEmpty()) {
-            etiquetaMensaje.setText("Todos los campos son obligatorios.");
+        if (nombre.isEmpty() || especie == null || tipo == null || marca.isEmpty()) {
+            etiquetaMensaje.setText("Por favor, complete todos los campos obligatorios.");
             return;
         }
 
         try {
-            if (!precioStr.matches("\\d+(\\.\\d{1,2})?")) {
-                etiquetaMensaje.setText("Precio inválido. Ejemplo válido: 12.50");
-                return;
-            }
-            if (!existenciaStr.matches("\\d+")) {
-                etiquetaMensaje.setText("Existencia debe ser un número entero.");
-                return;
-            }
-
-            double precio = Double.parseDouble(precioStr);
-            int existencia = Integer.parseInt(existenciaStr);
 
             ProductoDTO producto = new ProductoDTO(0, nombre, precio, especie, tipo, marca, existencia);
             boolean exito = productoDAO.insertarProducto(producto);
@@ -69,8 +91,12 @@ public class ControladorInsertarProductoGUI {
             } else {
                 etiquetaMensaje.setText("No se pudo registrar el producto.");
             }
+        } catch (SQLException e) {
+
+            etiquetaMensaje.setText("Error al registrar el producto: " + e.getMessage());
         } catch (Exception e) {
-            etiquetaMensaje.setText("Error: " + e.getMessage());
+
+            etiquetaMensaje.setText("Error inesperado: " + e.getMessage());
         }
     }
 
