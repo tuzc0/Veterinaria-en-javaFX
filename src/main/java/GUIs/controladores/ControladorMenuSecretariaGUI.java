@@ -71,5 +71,24 @@ public class ControladorMenuSecretariaGUI {
         utilidades.mostrarVentana("/ListaProductosPendientes.fxml");
     }
 
+    @FXML
+    public void abrirVentanaReporteVentas() {
 
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reporte_ventas.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Reportes de Ventas");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            utilidades.mostrarAlerta(
+                    "Error al abrir la ventana de reportes de ventas",
+                    "Error al abrir la ventana de reportes de ventas",
+                    "No se pudo cargar la ventana de reportes de ventas. Por favor, inténtelo de nuevo más tarde."
+            );
+        }
+    }
 }

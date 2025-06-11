@@ -74,6 +74,7 @@ public class ControladorLoginGUI {
 
                 idVeterinario = veterinario.getIdVeterinario();
                 mostrarAlerta("Éxito", "Inicio de sesión correcto", "Bienvenido, " + veterinario.getNombre() + " (Veterinario).");
+                utilidades.mostrarVentana("/MenuVeterinarioGUI.fxml");
                 return;
             }
 
