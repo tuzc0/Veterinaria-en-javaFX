@@ -35,4 +35,30 @@ public class ControladorMenuSecretariaGUI {
 
         }
     }
+
+    @FXML
+    public void abrirVentanaContarCitas() {
+
+        utilidades.mostrarVentana("/ContarCitas.fxml");
+    }
+
+    @FXML
+    public void abrirVentanaContarProductos() {
+
+        utilidades.mostrarVentana("/ContarProductosGUI.fxml");
+    }
+
+    @FXML
+    public void abrirVentanaRegistrarCompra() {
+
+        utilidades.mostrarVentana("/RegistrarCompraGUI.fxml");
+    }
+
+    @FXML
+    public void abrirVentanaVerificarVeterinarios() {
+
+        utilidades.mostrarVentana("/VerificarVeterinariosGUI.fxml");
+    }
+
+
 }

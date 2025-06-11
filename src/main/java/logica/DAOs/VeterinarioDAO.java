@@ -188,4 +188,41 @@ public class VeterinarioDAO {
 
         return veterinarios;
     }
+
+    public List<VeterinarioDTO> obtenerVeterinariosDisponibles(Timestamp fechaHora) throws SQLException, IOException {
+        List<VeterinarioDTO> veterinarios = new ArrayList<>();
+        String consultaSQL = "{CALL verificarVeterinariosDisponibles(?)}";
+
+        try {
+            conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
+            consultaPreparada = conexionBaseDeDatos.prepareCall(consultaSQL);
+            consultaPreparada.setTimestamp(1, fechaHora);
+            resultadoConsulta = consultaPreparada.executeQuery();
+
+            while (resultadoConsulta.next()) {
+                VeterinarioDTO vet = new VeterinarioDTO(
+                        -1, // Assuming idVeterinario is not returned by the procedure
+                        null,
+                        resultadoConsulta.getString("nombre"),
+                        resultadoConsulta.getString("apellidos"),
+                        null, // Assuming telefonoCelular is not returned
+                        null, // Assuming telefonoEmergencia is not returned
+                        null, // Assuming usuario is not returned
+                        null, // Assuming contraseña is not returned
+                        null, // Assuming calle is not returned
+                        null, // Assuming numero is not returned
+                        null  // Assuming colonia is not returned
+                );
+                veterinarios.add(vet);
+            }
+        } finally {
+            if (consultaPreparada != null) {
+                consultaPreparada.close();
+            }
+        }
+
+        return veterinarios;
+    }
+
+
 }

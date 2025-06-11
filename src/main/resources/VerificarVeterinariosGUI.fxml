@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUIs.controladores.ControladorVerificarDisponibilidadGUI"
+            stylesheets="@estiloslogin.css"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <!-- Panel principal -->
+    <VBox layoutX="50.0" layoutY="30.0" spacing="20" prefHeight="340.0" prefWidth="500.0"
+          style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-padding: 20;">
+
+        <!-- Título -->
+        <Label text="Verificar Disponibilidad de Veterinarios" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+
+        <!-- Campos de fecha y hora -->
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="150.0"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0"/>
+            </columnConstraints>
+
+            <!-- Fila 1: Fecha -->
+            <Label text="Fecha:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="fechaPicker" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <!-- Fila 2: Hora -->
+            <Label text="Hora:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="horaCombo" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="09:00"/>
+                        <String fx:value="10:00"/>
+                        <String fx:value="11:00"/>
+                        <String fx:value="12:00"/>
+                        <String fx:value="13:00"/>
+                        <String fx:value="14:00"/>
+                        <String fx:value="15:00"/>
+                        <String fx:value="16:00"/>
+                        <String fx:value="17:00"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </GridPane>
+
+        <!-- Botón de verificación -->
+        <Button fx:id="verificarBtn" text="Verificar Disponibilidad" onAction="#verificarDisponibilidad"
+                style="-fx-font-size: 14; -fx-pref-width: 200; -fx-pref-height: 35; -fx-background-color: #4a6fa5; -fx-text-fill: white;"/>
+
+        <!-- Resultados -->
+        <VBox spacing="5">
+            <Label text="Veterinarios Disponibles:" style="-fx-font-weight: bold;"/>
+            <TableView fx:id="tablaVeterinarios" prefHeight="150.0" prefWidth="460.0">
+                <columns>
+                    <TableColumn text="Nombre" prefWidth="150">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="nombre"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Apellidos" prefWidth="150">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="apellidos"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</AnchorPane>

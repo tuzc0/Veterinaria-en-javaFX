@@ -9,12 +9,15 @@ import logica.DAOs.*;
 import logica.DTOs.*;
 
 
+import javax.imageio.IIOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static logica.DTOs.Estatus.Pendiente;
 
@@ -31,10 +34,66 @@ public class ControladorRegistroCitaGUI {
 
     int idSecretario = ControladorLoginGUI.idSecretario;
 
+    private final List<String> horasDisponibles = Arrays.asList(
+            "09:00", "10:00", "11:00", "12:00",
+            "13:00", "14:00", "15:00", "16:00", "17:00"
+    );
+
+
     @FXML
     public void initialize() {
         cargarCombos();
         configurarControles();
+
+        // Listener para cuando cambia la fecha
+        fechaPicker.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                actualizarHorasDisponibles(newVal);
+            }
+        });
+    }
+
+    private void actualizarHorasDisponibles(LocalDate fechaSeleccionada) {
+        try {
+            // Obtener citas existentes para la fecha seleccionada
+            CitaDAO citaDAO = new CitaDAO();
+            List<CitaDTO> citasDelDia = citaDAO.obtenerCitasPorFecha(java.sql.Date.valueOf(fechaSeleccionada));
+
+            // Filtrar horas ocupadas
+            List<String> horasOcupadas = citasDelDia.stream()
+                    .map(cita -> {
+                        LocalTime hora = cita.getFecha().toLocalDateTime().toLocalTime();
+                        return hora.format(DateTimeFormatter.ofPattern("HH:mm"));
+                    })
+                    .collect(Collectors.toList());
+
+            // Filtrar horas disponibles
+            List<String> horasDisponiblesHoy = horasDisponibles.stream()
+                    .filter(hora -> !horasOcupadas.contains(hora))
+                    .collect(Collectors.toList());
+
+            // Actualizar ComboBox
+            horaCombo.getItems().setAll(horasDisponiblesHoy);
+
+            if (horasDisponiblesHoy.isEmpty()) {
+                utilidades.mostrarAlerta("Información", "Horario completo",
+                        "No hay horas disponibles para la fecha seleccionada.");
+            }
+
+        } catch (SQLException e) {
+            utilidades.mostrarAlerta("Error", "Error de base de datos",
+                    "No se pudieron cargar las citas: " + e.getMessage());
+            e.printStackTrace();
+        } catch (IIOException e){
+
+            utilidades.mostrarAlerta("Error", "Error de entrada/salida",
+                    "Ocurrió un error al cargar las citas: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            utilidades.mostrarAlerta("Error", "Error inesperado",
+                    "Ocurrió un error al cargar las citas: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void cargarCombos() {
