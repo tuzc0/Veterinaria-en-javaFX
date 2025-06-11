@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUIs.controladores.ControladorListaProductosPendientesGUI"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <TableView fx:id="tablaProductosPendientes" layoutX="25.0" layoutY="25.0" prefWidth="550.0" prefHeight="350.0">
+            <columns>
+                <TableColumn fx:id="columnaIdProducto" text="ID Producto" prefWidth="200.0"/>
+                <TableColumn fx:id="columnaFechaRegistro" text="Fecha Registro" prefWidth="330.0"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

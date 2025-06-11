@@ -63,7 +63,12 @@ public class ControladorMenuSecretariaGUI {
     @FXML
     public void abrirVentanaGestorProductos() {
 
-        utilidades.mostrarVentana("/GestorProductoGUI.fxml");
+        utilidades.mostrarVentana("/GestorProducto.fxml");
+    }
+
+    @FXML
+    public void abrirVentanaProductosPendientes() {
+        utilidades.mostrarVentana("/ListaProductosPendientes.fxml");
     }
 
 
