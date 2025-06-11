@@ -1,9 +1,13 @@
 package GUIs.controladores;
 
 import GUIauxiliar.Utilidades;
+import accesoadatos.ConexionBaseDeDatos;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import logica.DAOs.ReporteVentasDAO;
+
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class ControladorReporteVentas {
@@ -17,6 +21,32 @@ public class ControladorReporteVentas {
     public void initialize() {
 
         utilidades = new Utilidades();
+        try {
+            ConexionBaseDeDatos conexionBD = new ConexionBaseDeDatos();
+            reporteDAO = new ReporteVentasDAO(conexionBD);
+        } catch (SQLException e){
+            utilidades.mostrarAlerta(
+                    "Error de Conexión",
+                    "No se pudo establecer conexión con la base de datos.",
+                    "Por favor, verifica tu conexión e intenta nuevamente."
+            );
+            return;
+        } catch (IOException e) {
+            utilidades.mostrarAlerta(
+                    "Error de Conexión",
+                    "Ocurrió un error al intentar conectarse a la base de datos.",
+                    "Por favor, verifica tu conexión e intenta nuevamente."
+            );
+            return;
+        } catch (Exception e) {
+            utilidades.mostrarAlerta(
+                    "Error Desconocido",
+                    "Ocurrió un error inesperado.",
+                    "Por favor, contacta al soporte técnico."
+            );
+            return;
+        }
+
 
         for (int i = 1; i <= 12; i++) {
             cmbMes.getItems().add(i);

@@ -78,6 +78,13 @@ public class ControladorLoginGUI {
                 return;
             }
 
+            if (usuario.equals("admin")&& contrasena.equals("admin")) {
+
+                mostrarAlerta("Éxito", "Inicio de sesión correcto", "Bienvenido, Administrador.");
+                utilidades.mostrarVentana("/MenuAdminGUI.fxml");
+                return;
+            }
+
             mostrarAlerta("Error", "Credenciales incorrectas", "Usuario o contraseña incorrectos.");
 
         } catch (SQLException | IOException e) {
