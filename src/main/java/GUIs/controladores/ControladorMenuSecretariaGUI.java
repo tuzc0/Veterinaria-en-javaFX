@@ -60,5 +60,11 @@ public class ControladorMenuSecretariaGUI {
         utilidades.mostrarVentana("/VerificarVeterinariosGUI.fxml");
     }
 
+    @FXML
+    public void abrirVentanaGestorProductos() {
+
+        utilidades.mostrarVentana("/GestorProductoGUI.fxml");
+    }
+
 
 }
