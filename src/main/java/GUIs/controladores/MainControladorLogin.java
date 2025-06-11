@@ -11,7 +11,7 @@ public class MainControladorLogin extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ContarCitas.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/DiagnosticarAnimal.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Animales");
         primaryStage.setScene(new Scene(root));

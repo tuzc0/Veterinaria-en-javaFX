@@ -1,7 +1,7 @@
 package logica.DTOs;
 
 public enum Estatus {
-    Relizada,
+    Realizada,
     Cancelada,
     Pendiente,
 }

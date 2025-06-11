@@ -170,6 +170,43 @@ public class CitaDAO {
         return citas;
     }
 
+    public List<CitaDTO> listarCitasSinDiagnostico() throws SQLException, IOException {
+
+        List<CitaDTO> citas = new ArrayList<>();
+        String consultaSQL = "SELECT * FROM citas_pendientes_sin_diagnostico";
+
+        try {
+
+            conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
+            consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL);
+            resultadoConsulta = consultaPreparada.executeQuery();
+
+            while (resultadoConsulta.next()) {
+
+                CitaDTO cita = new CitaDTO(
+                        resultadoConsulta.getInt("idCita"),
+                        resultadoConsulta.getTimestamp("fecha"),
+                        resultadoConsulta.getString("tipoCita"),
+                        resultadoConsulta.getString("motivoCita"),
+                        resultadoConsulta.getInt("idAnimal"),
+                        resultadoConsulta.getInt("idSecretario"),
+                        resultadoConsulta.getInt("idVeterinario"),
+                        Estatus.valueOf(resultadoConsulta.getString("estatus"))
+                );
+
+                citas.add(cita);
+            }
+
+        } finally {
+
+            if (consultaPreparada != null) {
+                consultaPreparada.close();
+            }
+        }
+
+        return citas;
+    }
+
     public List<CitaDTO> obtenerCitasPorFecha(java.sql.Date fecha) throws SQLException, IOException {
         List<CitaDTO> citas = new ArrayList<>();
         String consultaSQL = "SELECT * FROM cita WHERE DATE(fecha) = ?";

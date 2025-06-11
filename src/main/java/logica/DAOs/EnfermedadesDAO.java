@@ -64,7 +64,7 @@ public class EnfermedadesDAO {
 
     public boolean modificarEnfermedad(EnfermedadesDTO enfermedad) throws SQLException, IOException {
 
-        String consultaSQL = "UPDATE enfermedades SET nombre = ?, especie = ?, tratamiento = ? WHERE idEnfermedad = ?";
+        String consultaSQL = "UPDATE enfermedades SET nombreEnfermedad = ?, especie = ?, tratamiento = ? WHERE idEnfermedad = ?";
         boolean enfermedadModificada = false;
 
         try {
@@ -104,7 +104,39 @@ public class EnfermedadesDAO {
 
                 enfermedad = new EnfermedadesDTO(
                         resultadoConsulta.getInt("idEnfermedad"),
-                        resultadoConsulta.getString("nombre"),
+                        resultadoConsulta.getString("nombreEnfermedad"),
+                        resultadoConsulta.getString("especie"),
+                        resultadoConsulta.getString("tratamiento")
+                );
+            }
+
+        } finally {
+
+            if (consultaPreparada != null) {
+                consultaPreparada.close();
+            }
+        }
+
+        return enfermedad;
+    }
+
+    public EnfermedadesDTO buscarEnfermedadPorNombre(String nombreEnfermedad) throws SQLException, IOException {
+
+        EnfermedadesDTO enfermedad = new EnfermedadesDTO(-1, "N/A", "N/A", "N/A");
+        String consultaSQL = "SELECT * FROM enfermedades WHERE nombreEnfermedad = ?";
+
+        try {
+
+            conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
+            consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL);
+            consultaPreparada.setString(1, nombreEnfermedad);
+            resultadoConsulta = consultaPreparada.executeQuery();
+
+            if (resultadoConsulta.next()) {
+
+                enfermedad = new EnfermedadesDTO(
+                        resultadoConsulta.getInt("idEnfermedad"),
+                        resultadoConsulta.getString("nombreEnfermedad"),
                         resultadoConsulta.getString("especie"),
                         resultadoConsulta.getString("tratamiento")
                 );
@@ -135,7 +167,7 @@ public class EnfermedadesDAO {
 
                 EnfermedadesDTO enfermedad = new EnfermedadesDTO(
                         resultadoConsulta.getInt("idEnfermedad"),
-                        resultadoConsulta.getString("nombre"),
+                        resultadoConsulta.getString("nombreEnfermedad"),
                         resultadoConsulta.getString("especie"),
                         resultadoConsulta.getString("tratamiento")
                 );

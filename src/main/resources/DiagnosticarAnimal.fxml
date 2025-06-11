@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" prefHeight="674.0" prefWidth="963.0" styleClass="border-pane" stylesheets="@estiloslogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="root" prefHeight="674.0" prefWidth="963.0" styleClass="border-pane" stylesheets="@estiloslogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIs.controladores.ControladorDiagnosticarAnimalGUI">
 
    <top>
       <AnchorPane prefHeight="51.0" prefWidth="963.0" BorderPane.alignment="CENTER">
@@ -31,11 +31,11 @@
          <children>
             <VBox layoutX="18.0" layoutY="65.0" prefHeight="500.0" prefWidth="640.0">
                <children>
-                  <TableView prefHeight="509.0" prefWidth="640.0">
+                  <TableView fx:id="tablaCita" prefHeight="509.0" prefWidth="640.0">
                      <columns>
-                        <TableColumn prefWidth="155.2" text="Fecha" />
-                        <TableColumn prefWidth="176.8" text="Tipo" />
-                        <TableColumn prefWidth="310.4" text="Motivo" />
+                        <TableColumn fx:id="columnaFechaCita" prefWidth="155.2" text="Fecha" />
+                        <TableColumn fx:id="columnaTipoCita" prefWidth="176.8" text="Tipo" />
+                        <TableColumn fx:id="columnaMotivoCita" prefWidth="310.4" text="Motivo" />
                      </columns>
                   </TableView>
                </children>
@@ -50,20 +50,20 @@
                   </Label>
 
                   <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Fecha:" />
-                  <Label prefHeight="41.0" prefWidth="291.0" />
+                  <Label fx:id="etiquetaFecha" prefHeight="41.0" prefWidth="291.0" />
                   <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Tipo:" />
-                  <Label prefHeight="41.0" prefWidth="291.0" />
+                  <Label fx:id="etiquetaTipo" prefHeight="41.0" prefWidth="291.0" />
                   <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Motivo:" />
-                  <Label prefHeight="41.0" prefWidth="291.0" />
-                  <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Diagnostico:" />
-                  <Label prefHeight="41.0" prefWidth="291.0" />
-                  <Label visible="false" layoutX="10.0" layoutY="319.0" prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Diagnostico:" />
-                  <ComboBox visible="false" prefHeight="30.0" prefWidth="274.0" />
+                  <Label fx:id="etiquetaMotivo" prefHeight="41.0" prefWidth="291.0" />
+                  <Label prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Nombre del Paciente:" />
+                  <Label fx:id="etiquetaNombreAnimal" prefHeight="41.0" prefWidth="291.0" />
+                  <Label fx:id="etiquetaEnfermedad" layoutX="10.0" layoutY="319.0" prefHeight="36.0" prefWidth="345.0" styleClass="label-subtitulo" text="Diagnostico:" visible="false" />
+                  <ComboBox fx:id="comboEnfermedad" prefHeight="30.0" prefWidth="274.0" visible="false" />
 
                   <HBox prefHeight="42.0" prefWidth="274.0" spacing="10">
                      <children>
-                        <Button visible="false" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" styleClass="button" text="Nueva Enfermedad" />
-                        <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="119.0" styleClass="button" text="Diagnosticar" />
+                        <Button fx:id="botonRegistrarEnfermedad" mnemonicParsing="false" onAction="#abrirVentanaNueva" prefHeight="42.0" prefWidth="154.0" styleClass="button" text="Nueva Enfermedad" visible="false" />
+                        <Button fx:id="botonDiagnosticar" mnemonicParsing="false" onAction="#diagnosticar" prefHeight="52.0" prefWidth="119.0" styleClass="button" text="Diagnosticar" visible="false" />
                      </children>
                   </HBox>
                </children>
@@ -71,7 +71,7 @@
 
             <HBox layoutX="18.0" layoutY="10.0" prefHeight="40.0" prefWidth="906.0" spacing="10">
                <children>
-                  <DatePicker prefHeight="38.0" prefWidth="246.0" styleClass="date-picker" />
+                  <DatePicker fx:id="fechaCita" prefHeight="38.0" prefWidth="246.0" styleClass="date-picker" />
                </children>
             </HBox>
          </children>
@@ -81,7 +81,7 @@
    <bottom>
       <AnchorPane prefHeight="56.0" prefWidth="923.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="21.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" styleClass="button" text="Regresar" />
+            <Button fx:id="botonRegresar" onAction="#regresar" layoutX="21.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" styleClass="button" text="Regresar" />
          </children>
       </AnchorPane>
    </bottom>
