@@ -16,7 +16,7 @@ public class CitaDAO {
 
     public boolean insertarCita(CitaDTO cita) throws SQLException, IOException {
 
-        String consultaSQL = "INSERT INTO cita (idCita, fecha, tipo, motivo, idAnimal, idSecretario, idVeterinario, estatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String consultaSQL = "INSERT INTO cita (idCita, fecha, tipoCita, motivoCita, idAnimal, idSecretario, idVeterinario, estatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         boolean citaInsertada = false;
 
         try {
@@ -69,7 +69,7 @@ public class CitaDAO {
 
     public boolean modificarCita(CitaDTO cita) throws SQLException, IOException {
 
-        String consultaSQL = "UPDATE cita SET fecha = ?, tipo = ?, motivo = ?, idAnimal = ?, idSecretario = ?, idVeterinario = ?, estatus = ? WHERE idCita = ?";
+        String consultaSQL = "UPDATE cita SET fecha = ?, tipoCita = ?, motivoCita = ?, idAnimal = ?, idSecretario = ?, idVeterinario = ?, estatus = ? WHERE idCita = ?";
         boolean citaModificada = false;
 
         try {
@@ -114,8 +114,8 @@ public class CitaDAO {
                 cita = new CitaDTO(
                         resultadoConsulta.getInt("idCita"),
                         resultadoConsulta.getTimestamp("fecha"),
-                        resultadoConsulta.getString("tipo"),
-                        resultadoConsulta.getString("motivo"),
+                        resultadoConsulta.getString("tipoCita"),
+                        resultadoConsulta.getString("motivoCita"),
                         resultadoConsulta.getInt("idAnimal"),
                         resultadoConsulta.getInt("idSecretario"),
                         resultadoConsulta.getInt("idVeterinario"),
@@ -149,8 +149,8 @@ public class CitaDAO {
                 CitaDTO cita = new CitaDTO(
                         resultadoConsulta.getInt("idCita"),
                         resultadoConsulta.getTimestamp("fecha"),
-                        resultadoConsulta.getString("tipo"),
-                        resultadoConsulta.getString("motivo"),
+                        resultadoConsulta.getString("tipoCita"),
+                        resultadoConsulta.getString("motivoCita"),
                         resultadoConsulta.getInt("idAnimal"),
                         resultadoConsulta.getInt("idSecretario"),
                         resultadoConsulta.getInt("idVeterinario"),
@@ -162,6 +162,38 @@ public class CitaDAO {
 
         } finally {
 
+            if (consultaPreparada != null) {
+                consultaPreparada.close();
+            }
+        }
+
+        return citas;
+    }
+
+    public List<CitaDTO> obtenerCitasPorFecha(java.sql.Date fecha) throws SQLException, IOException {
+        List<CitaDTO> citas = new ArrayList<>();
+        String consultaSQL = "SELECT * FROM cita WHERE DATE(fecha) = ?";
+
+        try {
+            conexionBaseDeDatos = new ConexionBaseDeDatos().getConnection();
+            consultaPreparada = conexionBaseDeDatos.prepareStatement(consultaSQL);
+            consultaPreparada.setDate(1, fecha);
+            resultadoConsulta = consultaPreparada.executeQuery();
+
+            while (resultadoConsulta.next()) {
+                CitaDTO cita = new CitaDTO(
+                        resultadoConsulta.getInt("idCita"),
+                        resultadoConsulta.getTimestamp("fecha"),
+                        resultadoConsulta.getString("tipoCita"),
+                        resultadoConsulta.getString("motivoCita"),
+                        resultadoConsulta.getInt("idAnimal"),
+                        resultadoConsulta.getInt("idSecretario"),
+                        resultadoConsulta.getInt("idVeterinario"),
+                        Estatus.valueOf(resultadoConsulta.getString("estatus"))
+                );
+                citas.add(cita);
+            }
+        } finally {
             if (consultaPreparada != null) {
                 consultaPreparada.close();
             }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUIs.controladores.ContarCitasController"
+            stylesheets="@estiloslogin.css"
+            prefHeight="350.0" prefWidth="450.0">
+
+    <!-- Panel principal con sombra -->
+    <VBox layoutX="25.0" layoutY="25.0" spacing="20" prefHeight="300.0" prefWidth="400.0"
+          style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-padding: 20;">
+
+        <!-- Título -->
+        <Label text="Contar Citas por Mes" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+
+        <!-- Campos de entrada -->
+        <GridPane hgap="10" vgap="15">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="120.0"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0"/>
+            </columnConstraints>
+
+            <!-- Fila 1: ID Veterinario -->
+            <Label text="ID Veterinario:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="idVetTX" promptText="Ingrese ID del veterinario" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <!-- Fila 2: Mes -->
+            <Label text="Mes:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="mesTX" promptText="Número del mes (1-12)" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <!-- Fila 3: Año -->
+            <Label text="Año:" style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="anioTX" promptText="Año (ej. 2023)" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <!-- Botón y resultado -->
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <Button fx:id="contarBtn" text="Contar Citas" onAction="#contarCitas"
+                    style="-fx-font-size: 14; -fx-pref-width: 150; -fx-pref-height: 35; -fx-background-color: #4a6fa5; -fx-text-fill: white;"/>
+
+            <!-- Panel de resultado -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f5f5f5; -fx-padding: 10; -fx-border-radius: 5;">
+                <Label text="Total de citas:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalLB" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #4a6fa5;"/>
+            </HBox>
+        </HBox>
+
+        <!-- Información adicional -->
+        <Label text="Esta consulta cuenta todas las citas del veterinario en el mes y año especificados."
+               style="-fx-font-size: 12; -fx-text-fill: #666; -fx-wrap-text: true;"/>
+    </VBox>
+</AnchorPane>

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -22,25 +26,35 @@
     <right>
         <AnchorPane prefHeight="584.0" prefWidth="583.0" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="144.0" layoutY="40.0" prefHeight="58.0" prefWidth="270.0" text="Ingresar nuevo animal:">
+                <Label layoutX="156.0" layoutY="14.0" prefHeight="58.0" prefWidth="270.0" text="Ingresar nuevo animal:">
                     <font>
                         <Font name="Bodoni MT Bold" size="24.0" />
                     </font>
                 </Label>
 
-                <VBox layoutX="48.0" layoutY="119.0" spacing="25.0">
+                <VBox layoutX="48.0" layoutY="99.0" prefHeight="402.0" prefWidth="464.0" spacing="25.0">
                     <children>
                         <TextField fx:id="colorTX" prefHeight="39.0" prefWidth="463.0" promptText="Color" styleClass="text-field" />
                         <TextField fx:id="razaTX" prefHeight="39.0" prefWidth="463.0" promptText="Raza" styleClass="text-field" />
-                        <TextField fx:id="tamanoTX" prefHeight="39.0" prefWidth="463.0" promptText="Tamaño" styleClass="text-field" />
-                        <TextField fx:id="pesoTX" prefHeight="39.0" prefWidth="463.0" promptText="Peso en kg" styleClass="text-field" />
-                        <TextField fx:id="especieTX" prefHeight="39.0" prefWidth="463.0" promptText="Especie" styleClass="text-field" />
-                        <TextField fx:id="duenoTX" prefHeight="39.0" prefWidth="463.0" promptText="Dueño" styleClass="text-field" />
+                  <ComboBox fx:id="comboTamaño" prefHeight="40.0" prefWidth="464.0" promptText="Tamaño" />
+                  <Label text="Peso en kg:" />
+                  <Spinner fx:id="SpinnerPeso" prefHeight="38.0" prefWidth="154.0" />
+                  <HBox prefHeight="19.0" prefWidth="464.0">
+                     <children>
+                        <HBox prefHeight="40.0" prefWidth="233.0">
+                           <children>
+                              <RadioButton fx:id="botonPerro" mnemonicParsing="false" text="Perro" />
+                           </children>
+                        </HBox>
+                        <RadioButton fx:id="botonGato" mnemonicParsing="false" text="Gato" />
+                     </children>
+                  </HBox>
+                        <TextField fx:id="duenoTX" prefHeight="40.0" prefWidth="464.0" promptText="Dueño" styleClass="text-field" />
                     </children>
                 </VBox>
 
-                <Button fx:id="aceptarBT" layoutX="144.0" layoutY="530.0" mnemonicParsing="false" onAction="#registrarAnimal" prefHeight="40.0" prefWidth="108.0" styleClass="button" text="Aceptar" />
-                <Button fx:id="cancelarBT" layoutX="306.0" layoutY="530.0" mnemonicParsing="false" onAction="#cancelarRegistro" prefHeight="40.0" prefWidth="108.0" styleClass="button" text="Cancelar" />
+                <Button fx:id="aceptarBT" layoutX="132.0" layoutY="530.0" mnemonicParsing="false" onAction="#registrarAnimal" prefHeight="40.0" prefWidth="108.0" styleClass="button" text="Aceptar" />
+                <Button fx:id="cancelarBT" layoutX="318.0" layoutY="530.0" mnemonicParsing="false" onAction="#cancelarRegistro" prefHeight="40.0" prefWidth="108.0" styleClass="button" text="Cancelar" />
             </children>
         </AnchorPane>
     </right>

@@ -10,7 +10,7 @@ public class prueba extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestorDueñoGUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Registro mascota");
         primaryStage.setScene(new Scene(root));

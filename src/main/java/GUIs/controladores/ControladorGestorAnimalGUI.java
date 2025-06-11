@@ -1,5 +1,6 @@
 package GUIs.controladores;
 
+import GUIauxiliar.Utilidades;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -46,6 +47,8 @@ public class ControladorGestorAnimalGUI {
     @FXML private TableColumn<AnimalDTO, String> columnaPeso;
     @FXML private TableColumn<AnimalDTO, Integer> columnaDueño;
 
+    private Utilidades utilidades = new Utilidades();
+
     private int idAnimal = 0;
 
     @FXML
@@ -77,11 +80,11 @@ public class ControladorGestorAnimalGUI {
 
         } catch (SQLException e) {
 
-            mostrarAlerta("Error de Base de Datos", "No se pudieron cargar los animales", e.getMessage());
+            utilidades.mostrarAlerta("Error de Base de Datos", "No se pudieron cargar los animales", e.getMessage());
 
         } catch (IOException e) {
 
-            mostrarAlerta("Error de Entrada/Salida", "No se pudieron cargar los animales", e.getMessage());
+            utilidades.mostrarAlerta("Error de Entrada/Salida", "No se pudieron cargar los animales", e.getMessage());
         }
     }
 
@@ -92,7 +95,7 @@ public class ControladorGestorAnimalGUI {
 
         if (especie.isEmpty()) {
 
-            mostrarAlerta("Error", "El campo de búsqueda se encuentra vacío", "Por favor llene el campo de búsqueda con la especie que desea buscar.");
+            utilidades.mostrarAlerta("Error", "El campo de búsqueda se encuentra vacío", "Por favor llene el campo de búsqueda con la especie que desea buscar.");
             return;
         }
 
@@ -112,16 +115,16 @@ public class ControladorGestorAnimalGUI {
 
             } else {
 
-                mostrarAlerta("Error", "Animal no encontrado", "No se encontró un animal con el ID proporcionado.");
+                utilidades.mostrarAlerta("Error", "Animal no encontrado", "No se encontró un animal con el ID proporcionado.");
             }
 
         } catch (NumberFormatException e) {
 
-            mostrarAlerta("Error", "Formato inválido", "El ID del animal debe ser un número.");
+            utilidades.mostrarAlerta("Error", "Formato inválido", "El ID del animal debe ser un número.");
 
         } catch (SQLException | IOException e) {
 
-            mostrarAlerta("Error", "Error al buscar", "Ocurrió un error al intentar buscar el animal.");
+            utilidades.mostrarAlerta("Error", "Error al buscar", "Ocurrió un error al intentar buscar el animal.");
         }
     }
 
@@ -147,11 +150,11 @@ public class ControladorGestorAnimalGUI {
 
         } catch (SQLException e) {
 
-            mostrarAlerta("Ocurrio un error intente mas tarde", "No se pudieron cargar los detalles del animal", e.getMessage());
+            utilidades.mostrarAlerta("Ocurrio un error intente mas tarde", "No se pudieron cargar los detalles del animal", e.getMessage());
 
         } catch (IOException e) {
 
-            mostrarAlerta("Ocurrio un error intente mas tarde", "No se pudieron cargar los detalles del animal", e.getMessage());
+            utilidades.mostrarAlerta("Ocurrio un error intente mas tarde", "No se pudieron cargar los detalles del animal", e.getMessage());
         }
     }
 
@@ -170,18 +173,38 @@ public class ControladorGestorAnimalGUI {
 
         } catch (IOException e) {
 
-            mostrarAlerta("Error", "Ocurrió un error", "No se pudo cargar la ventana.");
+            utilidades.mostrarAlerta("Error", "Ocurrió un error", "No se pudo cargar la ventana.");
+
         }
     }
 
     @FXML
     private void eliminarAnimal() {
 
+        utilidades.mostrarAlertaConfirmacion(
+                "Confirmar eliminación",
+                "¿Está seguro que desea eliminar este dueño?",
+                "Se borrara . Esta acción no se puede deshacer.",
+                () -> {
+
+                    borrarUsuarioSeleccionado();
+                },
+                () -> {
+                    utilidades.mostrarAlerta("Cancelado",
+                            "Eliminación cancelada",
+                            "No se ha eliminado ningun registro.");
+                }
+
+        );
+    }
+
+    public void borrarUsuarioSeleccionado() {
+
         AnimalDTO animalSeleccionado = tablaAnimales.getSelectionModel().getSelectedItem();
 
         if (animalSeleccionado == null) {
 
-            mostrarAlerta("Error", "No se seleccionó un animal", "Por favor, seleccione un animal de la tabla.");
+            utilidades.mostrarAlerta("Error", "No se seleccionó un animal", "Por favor, seleccione un animal de la tabla.");
             return;
         }
 
@@ -189,7 +212,7 @@ public class ControladorGestorAnimalGUI {
 
         if (idAnimalTexto.isEmpty()) {
 
-            mostrarAlerta("Error", "Campo vacío", "Por favor seleccione un animal para eliminar.");
+            utilidades.mostrarAlerta("Error", "Campo vacío", "Por favor seleccione un animal para eliminar.");
             return;
         }
 
@@ -201,22 +224,23 @@ public class ControladorGestorAnimalGUI {
 
             if (eliminado) {
 
-                mostrarAlerta("Éxito", "Animal eliminado", "El animal ha sido eliminado correctamente.");
+                utilidades.mostrarAlerta("Éxito", "Animal eliminado", "El animal ha sido eliminado correctamente.");
                 cargarAnimales();
 
             } else {
 
-                mostrarAlerta("Error", "No eliminado", "No se pudo eliminar el animal.");
+                utilidades.mostrarAlerta("Error", "No eliminado", "No se pudo eliminar el animal.");
             }
 
         } catch (NumberFormatException e) {
 
-            mostrarAlerta("Error", "Formato inválido", "El ID del animal no es válido.");
+            utilidades.mostrarAlerta("Error", "Formato inválido", "El ID del animal no es válido.");
 
         } catch (SQLException | IOException e) {
 
-            mostrarAlerta("Error", "Error al eliminar", "Ocurrió un error al intentar eliminar el animal.");
+            utilidades.mostrarAlerta("Error", "Error al eliminar", "Ocurrió un error al intentar eliminar el animal.");
         }
+
     }
 
     @FXML
@@ -226,7 +250,7 @@ public class ControladorGestorAnimalGUI {
 
         if (animalSeleccionado == null) {
 
-            mostrarAlerta("Error", "No se seleccionó un animal", "Por favor, seleccione un animal de la tabla.");
+            utilidades.mostrarAlerta("Error", "No se seleccionó un animal", "Por favor, seleccione un animal de la tabla.");
             return;
         }
 
@@ -298,7 +322,7 @@ public class ControladorGestorAnimalGUI {
 
         if (especie.isEmpty() || raza.isEmpty() || color.isEmpty() || tamaño.isEmpty() || peso.isEmpty() || idDueñoTexto.isEmpty()) {
 
-            mostrarAlerta("Error", "Campos vacíos", "Por favor, complete todos los campos.");
+            utilidades.mostrarAlerta("Error", "Campos vacíos", "Por favor, complete todos los campos.");
             return;
         }
 
@@ -308,7 +332,7 @@ public class ControladorGestorAnimalGUI {
 
             if (animalSeleccionado == null) {
 
-                mostrarAlerta("Error", "No se seleccionó un animal", "Por favor, seleccione un animal de la tabla.");
+                utilidades.mostrarAlerta("Error", "No se seleccionó un animal", "Por favor, seleccione un animal de la tabla.");
                 return;
             }
 
@@ -324,11 +348,11 @@ public class ControladorGestorAnimalGUI {
 
             if (!animal_modificado) {
 
-                mostrarAlerta("Error", "No se pudo modificar el registro", "Por favor, intentelo nuevamente");
+                utilidades.mostrarAlerta("Error", "No se pudo modificar el registro", "Por favor, intentelo nuevamente");
 
             } else {
 
-                mostrarAlerta("Exito", "El animal se ha modificado con exito","El animal se ha modificado");
+                utilidades.mostrarAlerta("Exito", "El animal se ha modificado con exito","El animal se ha modificado");
             }
 
             campoEspecieEncontrada.setText(especie);
@@ -343,20 +367,13 @@ public class ControladorGestorAnimalGUI {
 
         } catch (NumberFormatException e) {
 
-            mostrarAlerta("Error", "Formato inválido", "El ID del dueño debe ser un número.");
+            utilidades.mostrarAlerta("Error", "Formato inválido", "El ID del dueño debe ser un número.");
 
         } catch (SQLException | IOException e) {
 
-            mostrarAlerta("Error", "Error al guardar", "Ocurrió un error al intentar guardar los cambios.");
+            utilidades.mostrarAlerta("Error", "Error al guardar", "Ocurrió un error al intentar guardar los cambios.");
         }
     }
 
-    private void mostrarAlerta(String titulo, String cabecera, String contenido) {
 
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(cabecera);
-        alerta.setContentText(contenido);
-        alerta.showAndWait();
-    }
 }
